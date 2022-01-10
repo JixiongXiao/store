@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="btn-container">
-      <el-button @click="refreshGraph">重新刷新</el-button>
+      <el-button @click="refreshGraph">刷新数据</el-button>
       <div class="add-item">
         <el-input v-model="newId" placeholder="id" />
         <el-input v-model="newLable" placeholder="label" />
@@ -10,8 +10,34 @@
       <div class="add-item">
         <el-input v-model="newSource" placeholder="source" />
         <el-input v-model="newTarget" placeholder="target" />
-        <el-button @click="addEdge">添加节点</el-button>
+        <el-button @click="addEdge">添加关联</el-button>
       </div>
+      <div class="type-menu">
+        <el-select
+          v-model="layoutType"
+          placeholder="请选择"
+          @change="changeLayout"
+        >
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </div>
+    </div>
+    <div class="btn-container">
+      <!-- <div class="add-item">
+        <el-input v-model="newId" placeholder="id" />
+        <el-input v-model="newLable" placeholder="label" />
+        <el-button @click="addNode">添加节点</el-button>
+      </div>
+      <div class="add-item">
+        <el-input v-model="newSource" placeholder="source" />
+        <el-input v-model="newTarget" placeholder="target" />
+        <el-button @click="addEdge">添加节点</el-button>
+      </div> -->
     </div>
     <div id="graph-container" />
   </div>
@@ -117,11 +143,38 @@ export default {
           }
         ]
       },
+      options: [
+        {
+          value: 'random',
+          label: 'random'
+        },
+        {
+          value: 'gForce',
+          label: 'gForce'
+        },
+        {
+          value: 'force',
+          label: 'force'
+        },
+        {
+          value: 'radial',
+          label: 'radial'
+        },
+        {
+          value: 'circular',
+          label: 'circular'
+        },
+        {
+          value: 'concentric',
+          label: 'concentric'
+        }
+      ],
       instance: '',
       newId: '',
       newLable: '',
       newSource: '',
-      newTarget: ''
+      newTarget: '',
+      layoutType: 'gForce'
     }
   },
   mounted() {
@@ -149,7 +202,9 @@ export default {
       this.newLable = ''
     },
     refreshGraph() {
-      this.instance.read(this.data)
+      // this.instance.read(this.data)
+      this.instance.data(this.data)
+      this.instance.render()
     },
     drawGraph() {
       const container = document.getElementById('graph-container')
@@ -161,10 +216,11 @@ export default {
         height,
         fitView: false,
         fitViewPadding: 40,
+        autoPaint: true,
         layout: {
           // type: 'circular', // 环形
           // type: 'radial', // 放射形
-          type: 'gForce',
+          type: this.layoutType,
           preventOverlap: true,
           nodeSize: 20
         },
@@ -175,7 +231,9 @@ export default {
           size: 20
         }
       })
-      this.instance.data(this.data)
+      const data = JSON.parse(JSON.stringify(this.data))
+      // data在渲染时G6会更改data的某些属性，所以最好使用深拷贝的数据
+      this.instance.data(data)
       this.instance.render()
 
       function refreshDragedNodePosition(e) {
@@ -184,14 +242,13 @@ export default {
         model.fx = e.x
         model.fy = e.y
       }
-      this.instance.on('node:dragstart', (e) => {
-        this.instance.layout()
-        refreshDragedNodePosition(e)
-      })
-      this.instance.on('node:drag', (e) => {
-        this.instance.layout()
-        refreshDragedNodePosition(e)
-      })
+      // this.instance.on('node:dragstart', (e) => {
+      //   this.instance.layout()
+      //   refreshDragedNodePosition(e)
+      // })
+      // this.instance.on('node:drag', (e) => {
+      //   refreshDragedNodePosition(e)
+      // })
       if (typeof window !== 'undefined') {
         window.onresize = () => {
           if (!this.instance || this.instance.get('destroyed')) return
@@ -204,6 +261,10 @@ export default {
           )
         }
       }
+    },
+    changeLayout() {
+      this.instance.destroy()
+      this.drawGraph()
     }
   }
 }
@@ -215,11 +276,15 @@ export default {
   height: 100%;
 }
 .btn-container {
-  height: 100px;
+  height: 40px;
   display: flex;
 }
 .add-item {
   display: flex;
+  margin-left: 20px;
+}
+.type-menu {
+  width: 200px;
   margin-left: 20px;
 }
 #graph-container {
