@@ -221,14 +221,64 @@ export default {
           // type: 'circular', // 环形
           // type: 'radial', // 放射形
           type: this.layoutType,
-          preventOverlap: true,
-          nodeSize: 20
+          preventOverlap: true
         },
         modes: {
-          default: ['drag-node']
+          default: [
+            { type: 'drag-node' },
+            'zoom-canvas',
+            {
+              type: 'tooltip',
+              formatText(model) {
+                return model.id
+              },
+              offset: 0
+            }
+          ]
         },
         defaultNode: {
-          size: 20
+          size: 30,
+          type: 'circular',
+          style: {
+            fill: 'lightgreen', // 节点填充色
+            stroke: 'lightblue', // 节点描边色
+            lineWidth: 0,
+            shadowOffsetX: 3,
+            // shadowOffsetY: 3,
+            shadowColor: 'gray',
+            shadowBlur: 8,
+            cursor: 'pointer'
+          },
+          labelCfg: {
+            style: {
+              fill: 'white',
+              fontSize: 16
+            }
+          }
+        },
+        defaultEdge: {
+          style: {
+            lineWidth: 3,
+            stroke: 'grey'
+          }
+        },
+        nodeStateStyles: {
+          // 鼠标 hover 上节点，即 hover 状态为 true 时的样式
+          hover: {
+            fill: 'lightsteelblue'
+          },
+          // 鼠标点击节点，即 click 状态为 true 时的样式
+          click: {
+            stroke: '#000',
+            lineWidth: 3
+          }
+        },
+        // 边不同状态下的样式集合
+        edgeStateStyles: {
+          // 鼠标点击边，即 click 状态为 true 时的样式
+          click: {
+            stroke: 'steelblue'
+          }
         }
       })
       const data = JSON.parse(JSON.stringify(this.data))
@@ -249,6 +299,14 @@ export default {
       // this.instance.on('node:drag', (e) => {
       //   refreshDragedNodePosition(e)
       // })
+      this.instance.on('node:mouseenter', (e) => {
+        const nodeItem = e.item
+        this.instance.setItemState(nodeItem, 'hover', true)
+      })
+      this.instance.on('node:mouseleave', (e) => {
+        const nodeItem = e.item
+        this.instance.setItemState(nodeItem, 'hover', false)
+      })
       if (typeof window !== 'undefined') {
         window.onresize = () => {
           if (!this.instance || this.instance.get('destroyed')) return
@@ -294,5 +352,12 @@ export default {
 }
 .el-button {
   height: 36px;
+}
+.g6-tooltip {
+  padding: 10px 6px;
+  color: #444;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #e2e2e2;
+  border-radius: 4px;
 }
 </style>

@@ -136,7 +136,7 @@ export const asyncRoutes = [
     name: 'antV',
     redirect: '/antV/graph-topo',
     meta: {
-      title: 'antV',
+      title: 'AntV',
       icon: 'lock',
       roles: ['admin', 'editor'] // you can set roles in root nav
     },
@@ -147,6 +147,29 @@ export const asyncRoutes = [
         name: 'Graph-topo',
         meta: {
           title: 'Topo',
+          roles: ['admin', 'editor']
+        }
+      }
+    ]
+  },
+  {
+    path: '/three',
+    component: Layout,
+    alwaysShow: true,
+    name: 'three',
+    redirect: '/three/three-practice',
+    meta: {
+      title: 'Three.js',
+      icon: 'lock',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'three-practice',
+        component: () => import('@/views/threeJs/threePrac'),
+        name: '3D-prac',
+        meta: {
+          title: '3D-Practice',
           roles: ['admin', 'editor']
         }
       }
