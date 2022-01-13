@@ -130,6 +130,29 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
+    path: '/tool',
+    component: Layout,
+    alwaysShow: true,
+    name: 'Tool',
+    redirect: '/tool/my-tool',
+    meta: {
+      title: '工具',
+      icon: 'lock',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'my-tool',
+        component: () => import('@/views/tool/mytool'),
+        name: 'My-tool',
+        meta: {
+          title: 'my-tool',
+          roles: ['admin', 'editor']
+        }
+      }
+    ]
+  },
+  {
     path: '/antV',
     component: Layout,
     alwaysShow: true,
