@@ -39,8 +39,9 @@ stage.receiveShadow = true
 // 立方体
 const box = new Mesh(
   new BoxBufferGeometry(20, 20, 20),
-  new MeshStandardMaterial({ color: 'red', roughness: 0.5, metalness: 1 })
+  new MeshStandardMaterial({ color: 'red', roughness: 0.5, metalness: 0 })
 )
 box.position.y = 10
+box.position.x = 20
 box.castShadow = true
 objectList.push(stage, box)

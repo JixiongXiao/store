@@ -7,6 +7,7 @@ import { TEngine } from '@/three/TEngine'
 import { objectList } from '@/three/TBasicObject'
 import { lightsList } from '@/three/TLight'
 import { helperList } from '@/three/THelper'
+import { codeModelList } from '@/three/TCodeModel'
 export default {
   name: 'Three',
   data() {
@@ -19,6 +20,7 @@ export default {
     this.instance.addObject(...objectList)
     this.instance.addObject(...lightsList)
     this.instance.addObject(...helperList)
+    this.instance.addObject(...codeModelList)
   }
 }
 </script>

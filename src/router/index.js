@@ -146,7 +146,16 @@ export const asyncRoutes = [
         component: () => import('@/views/antV/graph-topo'),
         name: 'Graph-topo',
         meta: {
-          title: 'Topo',
+          title: 'Graph-Topo',
+          roles: ['admin', 'editor']
+        }
+      },
+      {
+        path: 'tree-topo',
+        component: () => import('@/views/antV/tree-topo'),
+        name: 'Tree-topo',
+        meta: {
+          title: 'Tree-Topo',
           roles: ['admin', 'editor']
         }
       }
