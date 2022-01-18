@@ -292,13 +292,13 @@ export default {
         model.fx = e.x
         model.fy = e.y
       }
-      // this.instance.on('node:dragstart', (e) => {
-      //   this.instance.layout()
-      //   refreshDragedNodePosition(e)
-      // })
-      // this.instance.on('node:drag', (e) => {
-      //   refreshDragedNodePosition(e)
-      // })
+      this.instance.on('node:dragstart', (e) => {
+        this.instance.layout()
+        refreshDragedNodePosition(e)
+      })
+      this.instance.on('node:drag', (e) => {
+        refreshDragedNodePosition(e)
+      })
       this.instance.on('node:mouseenter', (e) => {
         const nodeItem = e.item
         this.instance.setItemState(nodeItem, 'hover', true)

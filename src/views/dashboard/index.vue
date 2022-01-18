@@ -18,9 +18,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'roles'
-    ])
+    ...mapGetters(['roles'])
   },
   created() {
     if (!this.roles.includes('admin')) {
@@ -29,3 +27,11 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+@import '~@/styles/mixin.scss';
+@import '~@/styles/variables.scss';
+
+.dashboard-container {
+  height: 100%;
+}
+</style>
