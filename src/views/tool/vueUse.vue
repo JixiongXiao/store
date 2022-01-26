@@ -1,5 +1,5 @@
 <template>
-  <div class="my-test-container">
+  <div class="vueUse-container">
     <div class="component-list">
       <el-dropdown split-button type="primary" @command="commonComponent">
         <span class="el-dropdown-link">通用组件列表</span>
@@ -28,7 +28,7 @@ import ClickOutside from './components/click-outside'
 import Lazy from './components/lazy'
 import RightMenu from './components/right-menu'
 export default {
-  name: 'Mytool',
+  name: 'VueUse',
   components: {
     ClickOutside,
     Lazy,
@@ -52,7 +52,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/variables.scss';
 @import '@/styles/mixin.scss';
-.my-test-container {
+.vueUse-container {
   @include flex(flex-start, flex-start, row);
   width: 100%;
   height: 100%;

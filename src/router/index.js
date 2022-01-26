@@ -149,6 +149,15 @@ export const asyncRoutes = [
           title: 'my-tool',
           roles: ['admin', 'editor']
         }
+      },
+      {
+        path: 'vueUse',
+        component: () => import('@/views/tool/vueUse'),
+        name: 'VueUse',
+        meta: {
+          title: 'vueUse',
+          roles: ['admin', 'editor']
+        }
       }
     ]
   },
