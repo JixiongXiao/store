@@ -27,6 +27,7 @@ import Md5 from './components/md5'
 import ClickOutside from './components/click-outside'
 import Lazy from './components/lazy'
 import RightMenu from './components/right-menu'
+import { createObj } from './test'
 export default {
   name: 'VueUse',
   components: {
@@ -40,7 +41,18 @@ export default {
       currentComponent: ''
     }
   },
+  mounted() {
+    this.test()
+  },
   methods: {
+    test() {
+      const object = createObj(this)
+      console.log(object['a'][0]['b']['d'])
+    },
+    func(data) {
+      if (data) return data
+      else return '-'
+    },
     // 通用组件
     commonComponent(command) {
       this.currentComponent = command

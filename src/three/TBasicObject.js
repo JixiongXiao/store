@@ -42,6 +42,6 @@ const box = new Mesh(
   new MeshStandardMaterial({ color: 'red', roughness: 0.5, metalness: 0 })
 )
 box.position.y = 10
-box.position.x = 20
+box.position.x = 30
 box.castShadow = true
 objectList.push(stage, box)

@@ -3,7 +3,7 @@
     <div class="component-list">
       <el-dropdown split-button type="primary" @command="commonComponent">
         <span class="el-dropdown-link">通用组件列表</span>
-        <el-dropdown-menu slot="dropdown">
+        <el-dropdown-menu id="test" slot="dropdown">
           <el-dropdown-item command="utils-test">常用方法</el-dropdown-item>
           <el-dropdown-item command="md5">md5加密</el-dropdown-item>
           <el-dropdown-item command="lazy">懒加载</el-dropdown-item>
