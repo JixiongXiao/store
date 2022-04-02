@@ -1,9 +1,145 @@
 <template>
-  <div>tree</div>
+  <div class="container">
+    <div id="graph-container" />
+  </div>
 </template>
 
 <script>
-export default {}
+import G6 from '@antv/g6'
+export default {
+  name: 'AntVBubble',
+  data() {
+    return {
+      instance: ''
+    }
+  },
+  mounted() {
+    this.drawGraph()
+  },
+  methods: {
+    drawGraph() {
+      const data = {
+        nodes: [
+          {
+            id: 'node1',
+            x: 350,
+            y: 200,
+            comboId: 'combo1',
+            type: 'assetNode'
+          },
+          { id: 'node2', x: 350, y: 250, comboId: 'combo1', type: 'assetNode' },
+          { id: 'node3', x: 500, y: 200, comboId: 'combo3', type: 'assetNode' },
+          { id: 'node4', type: 'assetNode' }
+        ],
+        edges: [
+          { source: 'node1', target: 'node2' },
+          { source: 'node1', target: 'node3' },
+          { source: 'combo1', target: 'node3' }
+        ],
+        combos: [
+          { id: 'combo1', label: 'Combo 1', parentId: 'combo2' },
+          { id: 'combo2', label: 'Combo 2' },
+          { id: 'combo3', label: 'Combo 3' }
+        ]
+      }
+      const descriptionDiv = document.createElement('div')
+      descriptionDiv.innerHTML =
+        'Double click the combo to collapse/expand it. Drag the node or combo to change the hierarchy.'
+      const container = document.getElementById('graph-container')
+      container.appendChild(descriptionDiv)
+
+      const width = container.scrollWidth
+      const height = (container.scrollHeight || 500) - 20
+      // const group =
+      const graph = new G6.Graph({
+        container: 'graph-container',
+        width,
+        height,
+        // Set groupByTypes to false to get rendering result with reasonable visual zIndex for combos
+        groupByTypes: false,
+        defaultCombo: {
+          type: 'circle',
+          size: [40, 10], // The minimum size of the Combo
+          padding: [30, 20, 10, 20],
+          style: {
+            lineWidth: 1
+          },
+          labelCfg: {
+            refY: 10,
+            refX: 20,
+            position: 'top'
+          }
+        },
+        comboStateStyles: {
+          dragenter: {
+            lineWidth: 4,
+            stroke: '#FE9797'
+          }
+        },
+        modes: {
+          default: [
+            'drag-canvas',
+            'drag-node',
+            'drag-combo',
+            'collapse-expand-combo',
+            'click-select'
+          ]
+        }
+      })
+
+      graph.data(data)
+      graph.render()
+
+      graph.on('combo:dragend', (e) => {
+        graph.getCombos().forEach((combo) => {
+          graph.setItemState(combo, 'dragenter', false)
+        })
+      })
+      graph.on('node:dragend', (e) => {
+        graph.getCombos().forEach((combo) => {
+          graph.setItemState(combo, 'dragenter', false)
+        })
+      })
+
+      graph.on('combo:dragenter', (e) => {
+        graph.setItemState(e.item, 'dragenter', true)
+      })
+      graph.on('combo:dragleave', (e) => {
+        graph.setItemState(e.item, 'dragenter', false)
+      })
+
+      graph.on('combo:mouseenter', (evt) => {
+        const { item } = evt
+        graph.setItemState(item, 'active', true)
+      })
+
+      graph.on('combo:mouseleave', (evt) => {
+        const { item } = evt
+        graph.setItemState(item, 'active', false)
+      })
+
+      if (typeof window !== 'undefined') {
+        window.onresize = () => {
+          if (!graph || graph.get('destroyed')) return
+          if (!container || !container.scrollWidth || !container.scrollHeight) {
+            return
+          }
+          graph.changeSize(container.scrollWidth, container.scrollHeight - 20)
+        }
+      }
+    }
+  }
+}
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.container {
+  width: 100%;
+  height: 100%;
+}
+#graph-container {
+  border: 1px dotted gray;
+  width: 100%;
+  height: calc(100% - 100px);
+}
+</style>

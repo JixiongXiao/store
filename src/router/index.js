@@ -190,6 +190,24 @@ export const asyncRoutes = [
           title: 'Tree-Topo',
           roles: ['admin', 'editor']
         }
+      },
+      {
+        path: 'bubble',
+        component: () => import('@/views/antV/bubble'),
+        name: 'Bubble',
+        meta: {
+          title: 'Bubble',
+          roles: ['admin', 'editor']
+        }
+      },
+      {
+        path: 'layout',
+        component: () => import('@/views/antV/layout'),
+        name: 'Layout',
+        meta: {
+          title: 'Layout',
+          roles: ['admin', 'editor']
+        }
       }
     ]
   },
@@ -211,6 +229,29 @@ export const asyncRoutes = [
         name: '3D-prac',
         meta: {
           title: '3D-Practice',
+          roles: ['admin', 'editor']
+        }
+      }
+    ]
+  },
+  {
+    path: '/knowledge',
+    component: Layout,
+    alwaysShow: true,
+    name: 'knowledge',
+    redirect: '/three/three-practice',
+    meta: {
+      title: 'Knowledge',
+      icon: 'el-icon-s-help',
+      roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'knowledge-js',
+        component: () => import('@/views/knowledge/js-knowledge'),
+        name: 'knowledge-js',
+        meta: {
+          title: 'js知识点',
           roles: ['admin', 'editor']
         }
       }

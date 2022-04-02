@@ -17,6 +17,7 @@ import router from './router'
 import './icons' // icon
 import './permission' // permission control
 import './utils/error-log' // error log
+import './utils/g6-utils' // G6 相关方法
 
 import * as filters from './filters' // global filters
 import Contextmenu from 'vue-contextmenujs' // 右键菜单
