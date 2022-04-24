@@ -43,13 +43,12 @@ export default {
         comboSpacing: 10,
         comboPadding: 30,
         gravity: 0,
-        comboGravity: 10,
-        nodeSpacing: (d) => 20
+        comboGravity: 10
       },
       comboCombined: {
         type: 'comboCombined',
         outerLayout: new G6.Layout['gForce']({
-          gravity: 5,
+          gravity: 1,
           factor: 2
           // linkDistance: (edge, source, target) => {
           //   const nodeSize =
@@ -57,10 +56,21 @@ export default {
           //   return Math.min(nodeSize * 1.5, 700)
           // }
         }),
-        innerLayout: new G6.Layout['concentric']({
-          sortBy: 'id',
-          minNodeSpacing: 10
+        innerLayout: new G6.Layout['fruchterman']({
+          preventOverlap: true,
+          gravity: 1,
+          speed: 5,
+          clustering: true,
+          clusterGravity: 5
         })
+        // innerLayout: new G6.Layout['force']({
+        //   nodeSpacing: 30,
+        //   preventOverlap: true,
+        //   linkDistance: 150,
+        //   nodeStrength: -50,
+        //   edgeStrength: 0.1,
+        //   collideStrength: 0.5
+        // })
       }
     }
   },
@@ -82,10 +92,10 @@ export default {
       // })
 
       // 获取zoom比例
-      // console.log(this.instance.getZoom())
+      console.log(this.instance.getZoom())
 
       // 手动关闭commbo
-      this.instance.collapseExpandCombo('a')
+      // this.instance.collapseExpandCombo('a')
     },
     createNode() {
       for (let i = 0; i < 60; i++) {
@@ -134,139 +144,204 @@ export default {
         nodes: [
           {
             id: '0',
-            comboId: 'a'
+            comboId: 'a',
+            label: '0',
+            cluster: 'a'
           },
           {
             id: '1',
-            comboId: 'a'
+            comboId: 'a',
+            label: '1',
+            cluster: 'a'
           },
           {
             id: '2',
-            comboId: 'a'
+            comboId: 'a',
+            label: '2',
+            cluster: 'a'
           },
           {
             id: '3',
-            comboId: 'a'
+            comboId: 'a',
+            label: '3',
+            cluster: 'a'
           },
           {
             id: '4',
-            comboId: 'a'
+            comboId: 'a',
+            label: '4',
+            cluster: 'a'
           },
           {
             id: '5',
-            comboId: 'a'
+            comboId: 'a',
+            label: '5',
+            cluster: 'a'
           },
           {
             id: '6',
-            comboId: 'a'
+            comboId: 'a',
+            label: '6',
+            cluster: 'a'
           },
           {
             id: '7',
-            comboId: 'a'
+            comboId: 'a',
+            label: '7',
+            cluster: 'b'
           },
           {
             id: '8',
-            comboId: 'a'
+            comboId: 'a',
+            label: '8',
+            cluster: 'b'
           },
           {
             id: '9',
-            comboId: 'a'
+            comboId: 'a',
+            label: '9',
+            cluster: 'b'
           },
           {
             id: '10',
-            comboId: 'a'
+            comboId: 'a',
+            label: '10',
+            cluster: 'b'
           },
           {
             id: '11',
-            comboId: 'a'
+            comboId: 'a',
+            label: '11',
+            cluster: 'b'
           },
           {
             id: '12',
-            comboId: 'a'
+            comboId: 'a',
+            label: '12',
+            cluster: 'b'
           },
           {
             id: '13',
-            comboId: 'a'
+            comboId: 'a',
+            label: '13',
+            cluster: 'b'
           },
           {
             id: '14',
-            comboId: 'a'
+            comboId: 'a',
+            label: '14',
+            cluster: 'b'
           },
           {
             id: '15',
-            comboId: 'a'
+            comboId: 'a',
+            label: '15',
+            cluster: 'c'
           },
           {
             id: '16',
-            comboId: 'b'
+            comboId: 'b',
+            label: '16'
           },
           {
             id: '17',
-            comboId: 'b'
+            comboId: 'b',
+            label: '17'
           },
           {
             id: '18',
-            comboId: 'b'
+            comboId: 'b',
+            label: '18'
           },
           {
             id: '19',
-            comboId: 'b'
+            comboId: 'b',
+            label: '19'
           },
           {
             id: '23',
-            comboId: 'c'
+            comboId: 'c',
+            label: '23'
           },
           {
             id: '24',
-            comboId: 'a'
+            comboId: 'a',
+            label: '24',
+            cluster: 'c'
           },
           {
             id: '27',
-            comboId: 'c'
+            comboId: 'c',
+            label: '27'
           },
           {
             id: '28',
-            comboId: 'c'
+            comboId: 'c',
+            label: '28'
           },
           {
             id: '29',
-            comboId: 'c'
+            comboId: 'c',
+            label: '29'
           },
           {
             id: '30',
-            comboId: 'c'
+            comboId: 'c',
+            label: '30'
           },
           {
             id: '31',
-            comboId: 'c'
+            comboId: 'c',
+            label: '31'
           },
           {
             id: '32',
-            comboId: 'd'
+            comboId: 'd',
+            label: '32'
           },
           {
             id: '33',
-            comboId: 'd'
+            comboId: 'd',
+            label: '33'
           }
         ],
         combos: [
           {
             id: 'a',
-            label: 'Combo A'
+            size: 300
           },
           {
-            id: 'b',
-            label: 'Combo B'
+            id: 'b'
           },
           {
-            id: 'c',
-            label: 'Combo c'
+            id: 'c'
           },
           {
-            id: 'd',
-            label: 'Combo D'
+            id: 'd'
           }
         ]
+        // edges: [
+        //   { source: '0', target: '1' },
+        //   { source: '0', target: '2' },
+        //   { source: '0', target: '3' },
+        //   { source: '0', target: '4' },
+        //   { source: '1', target: '5' },
+        //   { source: '1', target: '6' },
+        //   { source: '1', target: '7' },
+        //   { source: '2', target: '8' },
+        //   { source: '2', target: '15' },
+        //   { source: '7', target: '24' },
+        //   { source: '16', target: '17' },
+        //   { source: '16', target: '18' },
+        //   { source: '18', target: '19' },
+        //   { source: '23', target: '27' },
+        //   { source: '23', target: '28' },
+        //   { source: '23', target: '29' },
+        //   { source: '23', target: '29' },
+        //   { source: '29', target: '30' },
+        //   { source: '29', target: '31' },
+        //   { source: '32', target: '33' }
+        // ]
       }
       this.instance = new G6.Graph({
         container: 'graph-container',
@@ -277,6 +352,7 @@ export default {
             'zoom-canvas',
             'drag-canvas',
             'drag-combo',
+            'drag-node',
             {
               type: 'collapse-expand-combo',
               trigger: 'dbclick',
@@ -311,27 +387,25 @@ export default {
           size: 40,
           padding: 10,
           style: {
+            lineWidth: 2,
+            opacity: 10,
+            fillOpacity: 1
+          }
+          // labelCfg: {
+          //   refY: 10,
+          //   refX: 20,
+          //   position: 'top'
+          // }
+        },
+        defaultEdge: {
+          style: {
+            stroke: '#eaff8f',
             lineWidth: 1
-          },
-          labelCfg: {
-            refY: 10,
-            refX: 20,
-            position: 'top'
           }
         }
-        // defaultEdge: {
-        //   style: {
-        //     stroke: '#eaff8f',
-        //     lineWidth: 5
-        //   }
-        // }
       })
       this.instance.data(data)
       this.instance.render()
-      this.instance.collapseExpandCombo('a')
-      this.instance.collapseExpandCombo('b')
-      this.instance.collapseExpandCombo('c')
-      this.instance.collapseExpandCombo('d')
       this.instance.on('combo:dragend', (e) => {
         this.instance.getCombos().forEach((combo) => {
           this.instance.setItemState(combo, 'dragenter', false)
@@ -385,5 +459,6 @@ export default {
   border: 1px dotted gray;
   width: 100%;
   height: calc(100% - 100px);
+  background: url('./BG.png');
 }
 </style>

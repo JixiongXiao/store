@@ -208,6 +208,24 @@ export const asyncRoutes = [
           title: 'Layout',
           roles: ['admin', 'editor']
         }
+      },
+      {
+        path: 'demo',
+        component: () => import('@/views/antV/demo'),
+        name: 'Demo',
+        meta: {
+          title: 'Demo',
+          roles: ['admin', 'editor']
+        }
+      },
+      {
+        path: 'demoB',
+        component: () => import('@/views/antV/demoB'),
+        name: 'DemoB',
+        meta: {
+          title: 'DemoB',
+          roles: ['admin', 'editor']
+        }
       }
     ]
   },
