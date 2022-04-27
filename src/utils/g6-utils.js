@@ -53,84 +53,48 @@ G6.registerNode(
     },
     // 绘制label
     drawLabel(cfg, group) {
-      var size = this.getSize(cfg)
-      var width = size[0]
+      // var size = this.getSize(cfg)
+      // var width = size[0]
+      const width = 160 // 节点大小
       // const height = size[1];
       var label = cfg.label
-      if (label.length === 1) {
-        // 绘制第一个label
-        group.addShape('text', {
-          attrs: {
-            text: label[0] || '',
-            x: 0 - width / 2 + 5,
-            y: 0,
-            fill: '#ffffff',
-            textAlign: 'left',
-            textBaseline: 'middle'
-          }
-        })
-      } else if (label.length === 2) {
-        // 绘制第一个label
-        group.addShape('text', {
-          attrs: {
-            text: label[0] || '',
-            x: 0 - width / 2 + 5,
-            y: 0,
-            fill: '#ffffff',
-            textAlign: 'left'
-          }
-        })
-        // 绘制第二个label
-        group.addShape('text', {
-          attrs: {
-            text: label[1] || '',
-            x: -14,
-            y: 30,
-            fill: '#ffffff',
-            textAlign: 'left',
-            fontSize: 22,
-            fontWeight: 'bold',
-            fontStyle: 'italic'
-          }
-        })
-      } else if (label.length === 3) {
-        // 绘制第一个label
-        group.addShape('text', {
-          attrs: {
-            text: label[0] || '',
-            x: 0 - width / 2 + 5,
-            y: 0,
-            fill: '#ffffff',
-            fontSize: 18,
-            textAlign: 'left'
-          }
-        })
-        // 绘制第二个label
-        group.addShape('text', {
-          attrs: {
-            text: label[1] || '',
-            x: -14,
-            y: 30,
-            fill: '#ffffff',
-            textAlign: 'left',
-            fontSize: 56,
-            fontWeight: 'bold',
-            fontStyle: 'italic'
-          }
-        })
-        // 绘制第三个label
-        group.addShape('text', {
-          attrs: {
-            text: label[2] || '',
-            x: 8,
-            y: 30,
-            fill: '#ffffff',
-            textAlign: 'left',
-            fontSize: 14,
-            fontWeight: 'bold'
-          }
-        })
-      }
+      // 绘制第一个label
+      group.addShape('text', {
+        attrs: {
+          text: label[0] || '',
+          x: 0 - width / 2 + 8,
+          y: -15,
+          fill: '#ffffff',
+          fontSize: 18,
+          fontWeight: 700,
+          textAlign: 'left'
+        }
+      })
+      // 绘制第二个label
+      group.addShape('text', {
+        attrs: {
+          text: label[1] || '',
+          x: -28,
+          y: 60,
+          fill: '#ffffff',
+          textAlign: 'left',
+          fontSize: 56,
+          fontWeight: 'bold',
+          fontStyle: 'italic'
+        }
+      })
+      // 绘制第三个label
+      group.addShape('text', {
+        attrs: {
+          text: label[2] || '',
+          x: 24,
+          y: 52,
+          fill: '#ffffff',
+          textAlign: 'left',
+          fontSize: 24,
+          fontWeight: 'bold'
+        }
+      })
     }
   },
 
@@ -183,64 +147,27 @@ G6.registerNode(
 
     draw: function draw(cfg, group) {
       var shape = this.drawShape(cfg, group)
-
       if (cfg.label && cfg.label.length) {
         this.drawLabel(cfg, group)
       }
-
       return shape
     },
 
     // 绘制label
 
     drawLabel: function drawLabel(cfg, group) {
-      var size = this.getSize(cfg)
-
-      var width = size[0]
-
-      // const height = size[1];
-
-      var label = cfg.label
-
-      // 绘制第一个label
-
+      const width = 80
       group.addShape('text', {
         attrs: {
-          text: label[0] || '',
-
+          text: cfg.label || '',
           x: 0 - width / 2 + 5,
-
-          y: -5,
-
-          fill: '#595959',
-
+          y: 0,
+          fill: '#ffffff',
+          fontWeight: 700,
           textAlign: 'left',
-
           textBaseline: 'middle'
         }
       })
-
-      if (label.length > 1) {
-        // 绘制第二个label
-
-        group.addShape('text', {
-          attrs: {
-            text: '\n\n' + label[1] || '',
-
-            x: -5,
-
-            y: 0,
-
-            fill: '#1890ff',
-
-            textAlign: 'left',
-
-            textBaseline: 'middle',
-
-            fontWeight: 'bold'
-          }
-        })
-      }
     }
   },
 
@@ -288,70 +215,6 @@ G6.registerNode(
         }
       }
     }
-
-    // 绘制节点
-
-    // draw: function draw(cfg,  group) {
-    //   var shape = this.drawShape(cfg, group)
-
-    //   if (cfg.label && cfg.label.length) {
-    //     this.drawLabel(cfg, group)
-    //   }
-
-    //   return shape
-    // },
-
-    // // 绘制label
-
-    // drawLabel: function drawLabel(cfg, group) {
-    //   var size = this.getSize(cfg)
-
-    //   var width = size[0]
-
-    //   // const height = size[1];
-
-    //   var label = cfg.label
-
-    //   // 绘制第一个label
-
-    //   group.addShape('text', {
-    //     attrs: {
-    //       text: label[0] || '',
-
-    //       x: 0 - width / 2 + 5,
-
-    //       y: -5,
-
-    //       fill: '#595959',
-
-    //       textAlign: 'left',
-
-    //       textBaseline: 'middle'
-    //     }
-    //   })
-
-    //   if (label.length > 1) {
-    //     // 绘制第二个label
-
-    //     group.addShape('text', {
-    //       attrs: {
-    //         text: '\n\n' + label[1] || '',
-
-    //         x: -5,
-
-    //         y: 0,
-
-    //         fill: '#1890ff',
-
-    //         textAlign: 'left',
-
-    //         textBaseline: 'middle',
-
-    //         fontWeight: 'bold'
-    //       }
-    //     })
-    //   }
-    // }
   },
 
   'circle'
@@ -373,7 +236,6 @@ G6.registerNode(
 
       stateStyles: {
         // 鼠标hover状态下的配置
-
         hover: {
           lineWidth: 0,
           stroke: '#FE9797',
@@ -399,7 +261,6 @@ G6.registerNode(
     },
 
     // 绘制节点
-
     draw: function draw(cfg, group) {
       var shape = this.drawShape(cfg, group)
 
@@ -409,56 +270,95 @@ G6.registerNode(
 
       return shape
     },
-
     // 绘制label
-
-    drawLabel: function drawLabel(cfg, group) {
-      var size = this.getSize(cfg)
-
-      var width = size[0]
-
+    drawLabel(cfg, group) {
+      // var size = this.getSize(cfg)
+      // var width = size[0]
+      const width = 160 // 节点大小
       // const height = size[1];
-
       var label = cfg.label
-
       // 绘制第一个label
-
       group.addShape('text', {
         attrs: {
           text: label[0] || '',
-
-          x: 0 - width / 2 + 5,
-
-          y: -5,
-
-          fill: '#595959',
-
-          textAlign: 'left',
-
-          textBaseline: 'middle'
+          x: 0 - width / 2 + 8,
+          y: -15,
+          fill: '#ffffff',
+          fontSize: 18,
+          fontWeight: 700,
+          textAlign: 'left'
         }
       })
+      // 绘制第二个label
+      group.addShape('text', {
+        attrs: {
+          text: label[1] || '',
+          x: -28,
+          y: 60,
+          fill: '#ffffff',
+          textAlign: 'left',
+          fontSize: 56,
+          fontWeight: 'bold',
+          fontStyle: 'italic'
+        }
+      })
+      // 绘制第三个label
+      group.addShape('text', {
+        attrs: {
+          text: label[2] || '',
+          x: 24,
+          y: 52,
+          fill: '#ffffff',
+          textAlign: 'left',
+          fontSize: 24,
+          fontWeight: 'bold'
+        }
+      })
+    }
+  },
 
-      if (label.length > 1) {
-        // 绘制第二个label
+  'circle'
+)
+G6.registerNode(
+  'levelC-orange',
 
-        group.addShape('text', {
-          attrs: {
-            text: '\n\n' + label[1] || '',
+  {
+    options: {
+      size: 24,
+      color: '#5B8FF9',
+      style: {
+        lineWidth: 0,
+        fill: 'r(0.6, 0.3, 0.8) 0:#ffc080 1:#ff8000',
+        shadowColor: '#ffc080',
+        shadowOffsetX: 1,
+        shadowOffsetY: 5,
+        shadowBlur: 20
+      },
 
-            x: -5,
+      stateStyles: {
+        // 鼠标hover状态下的配置
 
-            y: 0,
+        hover: {
+          lineWidth: 0,
+          stroke: '#FE9797',
+          shadowBlur: 10,
+          shadowColor: '#FE9797'
+          // opacity: 0
+        },
+        active: {
+          lineWidth: 1,
+          stroke: '#ff8000',
+          shadowColor: '#ffa24a',
+          shadowOffsetX: 1,
+          shadowOffsetY: 5,
+          shadowBlur: 20
+        },
 
-            fill: '#1890ff',
+        // 选中节点状态下的配置
 
-            textAlign: 'left',
-
-            textBaseline: 'middle',
-
-            fontWeight: 'bold'
-          }
-        })
+        selected: {
+          lineWidth: 3
+        }
       }
     }
   },
@@ -520,55 +420,49 @@ G6.registerNode(
     },
 
     // 绘制label
-
-    drawLabel: function drawLabel(cfg, group) {
-      var size = this.getSize(cfg)
-
-      var width = size[0]
-
+    drawLabel(cfg, group) {
+      // var size = this.getSize(cfg)
+      // var width = size[0]
+      const width = 160 // 节点大小
       // const height = size[1];
-
       var label = cfg.label
-
       // 绘制第一个label
-
       group.addShape('text', {
         attrs: {
           text: label[0] || '',
-
-          x: 0 - width / 2 + 5,
-
-          y: -5,
-
-          fill: '#595959',
-
-          textAlign: 'left',
-
-          textBaseline: 'middle'
+          x: 0 - width / 2 + 8,
+          y: -15,
+          fill: '#ffffff',
+          fontSize: 18,
+          fontWeight: 700,
+          textAlign: 'left'
         }
       })
-
-      if (label.length > 1) {
-        // 绘制第二个label
-
-        group.addShape('text', {
-          attrs: {
-            text: '\n\n' + label[1] || '',
-
-            x: -5,
-
-            y: 0,
-
-            fill: '#1890ff',
-
-            textAlign: 'left',
-
-            textBaseline: 'middle',
-
-            fontWeight: 'bold'
-          }
-        })
-      }
+      // 绘制第二个label
+      group.addShape('text', {
+        attrs: {
+          text: label[1] || '',
+          x: -28,
+          y: 60,
+          fill: '#ffffff',
+          textAlign: 'left',
+          fontSize: 56,
+          fontWeight: 'bold',
+          fontStyle: 'italic'
+        }
+      })
+      // 绘制第三个label
+      group.addShape('text', {
+        attrs: {
+          text: label[2] || '',
+          x: 24,
+          y: 52,
+          fill: '#ffffff',
+          textAlign: 'left',
+          fontSize: 24,
+          fontWeight: 'bold'
+        }
+      })
     }
   },
 
@@ -578,7 +472,7 @@ G6.registerNode(
   'assetA',
   {
     options: {
-      size: 140,
+      size: 40,
       style: {
         lineWidth: 0,
         fill: 'r(0.6, 0.3, 0.7) 0:#f28c8c 1:#d72e2e',
@@ -587,7 +481,7 @@ G6.registerNode(
         shadowOffsetX: 1,
         shadowOffsetY: 5,
         shadowBlur: 20,
-        cursor: 'pointer'
+        cursor: 'move'
       },
       stateStyles: {
         // 鼠标hover状态下的配置
@@ -604,6 +498,10 @@ G6.registerNode(
           shadowOffsetX: 1,
           shadowOffsetY: 5,
           shadowBlur: 20
+        },
+        selected: {
+          lineWidth: 2,
+          stroke: '#ffffff'
         }
       }
     },
@@ -629,14 +527,15 @@ G6.registerNode(
   'assetB',
   {
     options: {
-      size: 140,
+      size: 40,
       style: {
         lineWidth: 0,
         fill: 'r(0.6, 0.3, 0.8) 0:#8CAAF2 1:#1954E4',
         shadowColor: '#8CAAF2',
         shadowOffsetX: 1,
         shadowOffsetY: 5,
-        shadowBlur: 20
+        shadowBlur: 20,
+        cursor: 'move'
       },
       stateStyles: {
         // 鼠标hover状态下的配置
@@ -653,6 +552,10 @@ G6.registerNode(
           shadowOffsetX: 1,
           shadowOffsetY: 5,
           shadowBlur: 20
+        },
+        selected: {
+          lineWidth: 2,
+          stroke: '#ffffff'
         }
       }
     },
@@ -670,6 +573,28 @@ G6.registerNode(
         },
         name: 'img-icon'
       })
+    }
+  },
+  'circle'
+)
+G6.registerNode(
+  'asset-group',
+  {
+    options: {
+      size: 50,
+      style: {
+        lineWidth: 0,
+        stroke: '#ffffff'
+      },
+      labelCfg: {
+        position: 'center',
+        offset: 150,
+        style: {
+          fontSize: 18,
+          opacity: 0.1,
+          fontWeight: 700
+        }
+      }
     }
   },
   'circle'

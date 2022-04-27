@@ -38,9 +38,9 @@ export default {
   methods: {
     handleSearch() {
       const node = this.instance.findById(this.search)
-      console.log(this.instance.getZoom())
       if (node) {
         // focus测试
+        this.hideNode(true)
         this.instance.zoomTo(1.5)
         this.instance.focusItem(this.search, true, {
           duration: 500
@@ -74,21 +74,32 @@ export default {
           const outDiv = document.createElement('div')
           outDiv.style.width = 'fit-content'
           outDiv.innerHTML = `
-      <h4>Custom Content</h4>
+      <h4>资产组详情</h4>
       <ul>
-        <li>level: ${e.item.getModel().level}</li>
+        <li>${e.item.getModel().asset}</li>
       </ul>
       <ul>
-        <li>Label: ${e.item.getModel().label || e.item.getModel().id}</li>
+        <li>${e.item.getModel().level}级资产组</li>
       </ul>`
           return outDiv
+        }
+      })
+      const menu = new G6.Menu({
+        itemTypes: ['node'],
+        getContent(e) {
+          return `
+          <div style="cursor:pointer">进入详情页</div>
+          `
+        },
+        handleMenuClick(target, item) {
+          console.log(target, item)
         }
       })
       const graph = new G6.Graph({
         container: 'graph-container',
         width,
         height,
-        plugins: [tooltip],
+        plugins: [tooltip, menu],
         layout: {
           type: 'force',
           preventOverlap: true,
@@ -166,7 +177,8 @@ export default {
             id: 'node0',
             size: 160,
             level: 1,
-            label: ['XXXXXXXX资产组0', 'A', '33'],
+            asset: '江苏省分公司资产组',
+            label: ['江苏省分公司资...', 'A', '90'],
             group: 'a',
             type: 'levelA-blue'
           },
@@ -174,48 +186,117 @@ export default {
             id: 'node1',
             size: 80,
             level: 2,
-            label: '1',
-            group: 'a'
+            asset: '苏州市研发部',
+            label: '苏州市研发部',
+            group: 'a',
+            type: 'levelB-blue'
           },
           {
             id: 'node2',
             size: 160,
             level: 1,
-            label: '2',
+            asset: '安徽省分公司资产组',
+            label: ['安徽省分公司资...', 'B', '66'],
             group: 'b',
             type: 'levelA-orange'
           },
-          { id: 'node4', size: 80, level: 2, label: '4', group: 'a' },
-          { id: 'node54', size: 80, level: 2, label: '54', group: 'a' },
-          { id: 'node55', size: 80, level: 2, label: '55', group: 'a' },
-          { id: 'node56', size: 80, level: 2, label: '56', group: 'a' },
-          { id: 'node57', size: 80, level: 2, label: '57', group: 'a' },
-          { id: 'node58', size: 80, level: 2, label: '58', group: 'a' },
-          { id: 'node59', size: 80, level: 2, label: '59', group: 'a' },
-          { id: 'node60', size: 80, level: 2, label: '60', group: 'a' },
-          { id: 'node61', size: 80, level: 2, label: '61', group: 'a' },
-          { id: 'node62', size: 80, level: 2, label: '62', group: 'a' },
-          { id: 'node5', size: 80, level: 2, label: '5', group: 'a' },
-          { id: 'node6', size: 24, level: 3, label: '6', group: 'a' },
-          { id: 'node7', size: 24, level: 3, label: '7', group: 'a' },
-          { id: 'node98', size: 80, level: 2, label: '98', group: 'b' },
-          { id: 'node8', size: 24, level: 3, label: '8', group: 'b' },
-          { id: 'node9', size: 24, level: 3, label: '9', group: 'b' },
+          {
+            id: 'node4',
+            size: 80,
+            level: 2,
+            asset: '南京市产品研发部',
+            label: '南京市产品...',
+            group: 'a',
+            type: 'levelB-blue'
+          },
+          {
+            id: 'node5',
+            size: 80,
+            level: 2,
+            asset: '无锡市技术研发部',
+            label: '无锡市技术...',
+            group: 'a',
+            type: 'levelB-blue'
+          },
+          {
+            id: 'node6',
+            size: 24,
+            level: 3,
+            asset: '苏州市某某技术支持中心',
+            group: 'a',
+            type: 'levelC-orange'
+          },
+          {
+            id: 'node7',
+            size: 24,
+            level: 3,
+            asset: '苏州市某某技术支持中心',
+            group: 'a',
+            type: 'levelC-blue'
+          },
+          {
+            id: 'node98',
+            size: 80,
+            level: 2,
+            asset: '合肥市研发部',
+            label: '合肥市产品...',
+            group: 'b',
+            type: 'levelB-blue'
+          },
+          {
+            id: 'node8',
+            size: 24,
+            level: 3,
+            asset: '合肥市某某产品研发部',
+            group: 'b',
+            type: 'levelC-blue'
+          },
+          {
+            id: 'node9',
+            size: 24,
+            level: 3,
+            asset: '合肥市某某产品研发部',
+            group: 'b',
+            type: 'levelC-blue'
+          },
           {
             id: 'node10',
             size: 24,
             level: 3,
-            label: '10',
-            group: 'b'
+            asset: '合肥市某某产品研发部',
+            group: 'b',
+            type: 'levelC-blue'
           },
-          { id: 'node11', size: 24, level: 3, label: '11', group: 'b' },
-          { id: 'node12', size: 24, level: 3, label: '12', group: 'b' },
-          { id: 'node13', size: 24, level: 3, label: '13', group: 'b' },
+          {
+            id: 'node11',
+            size: 24,
+            level: 3,
+            asset: '合肥市某某产品研发部',
+            group: 'b',
+            type: 'levelC-blue'
+          },
+          {
+            id: 'node12',
+            size: 24,
+            level: 3,
+            asset: '合肥市某某产品研发部',
+            group: 'b',
+            type: 'levelC-blue'
+          },
+          {
+            id: 'node13',
+            size: 24,
+            level: 3,
+            asset: '合肥市某某产品研发部',
+            group: 'b',
+            type: 'levelC-blue'
+          },
           {
             id: 'node99',
             size: 160,
             level: 1,
-            label: '99',
+            asset: '山东省分公司资产组',
+            label: ['山东省分公司资...', 'C', '33'],
             group: 'c',
             type: 'levelA-red'
           },
@@ -223,7 +304,8 @@ export default {
             id: 'node3',
             size: 80,
             level: 2,
-            label: '3',
+            asset: '济南市研发中心',
+            label: '济南市研发...',
             group: 'c',
             type: 'levelB-blue'
           },
@@ -231,7 +313,7 @@ export default {
             id: 'node14',
             size: 24,
             level: 3,
-            label: '14',
+            asset: '济南市研发中心一部',
             group: 'c',
             type: 'levelC-blue'
           },
@@ -239,7 +321,7 @@ export default {
             id: 'node15',
             size: 24,
             level: 3,
-            label: '15',
+            asset: '济南市研发中心二部',
             group: 'c',
             type: 'levelC-blue'
           },
@@ -247,24 +329,15 @@ export default {
             id: 'node16',
             size: 24,
             level: 3,
-            label: '16',
+            asset: '济南市研发中心三部',
             group: 'c',
-            type: 'levelC-blue'
+            type: 'levelC-orange'
           }
         ],
         edges: [
           { source: 'node0', target: 'node1' },
           { source: 'node0', target: 'node4' },
           { source: 'node0', target: 'node5' },
-          { source: 'node0', target: 'node54' },
-          { source: 'node0', target: 'node55' },
-          { source: 'node0', target: 'node56' },
-          { source: 'node0', target: 'node57' },
-          { source: 'node0', target: 'node58' },
-          { source: 'node0', target: 'node59' },
-          { source: 'node0', target: 'node60' },
-          { source: 'node0', target: 'node61' },
-          { source: 'node0', target: 'node62' },
           { source: 'node99', target: 'node3' },
           { source: 'node2', target: 'node98' },
           { source: 'node1', target: 'node6' },
@@ -290,7 +363,6 @@ export default {
         })
       })
       graph.render()
-
       graph.on('node:dragstart', function(e) {
         graph.layout()
         refreshDragedNodePosition(e)
@@ -382,5 +454,8 @@ export default {
   width: 100%;
   height: 100%;
   background: url('./BG.png');
+}
+.demoMenu {
+  cursor: pointer;
 }
 </style>
