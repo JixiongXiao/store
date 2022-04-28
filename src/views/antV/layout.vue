@@ -56,12 +56,12 @@ export default {
           //   return Math.min(nodeSize * 1.5, 700)
           // }
         }),
-        innerLayout: new G6.Layout['fruchterman']({
-          preventOverlap: true,
-          gravity: 1,
-          speed: 5,
-          clustering: true,
-          clusterGravity: 5
+        innerLayout: new G6.Layout['circular']({
+          // preventOverlap: true,
+          // gravity: 1,
+          // speed: 5,
+          // clustering: true,
+          // clusterGravity: 5
         })
         // innerLayout: new G6.Layout['force']({
         //   nodeSpacing: 30,
