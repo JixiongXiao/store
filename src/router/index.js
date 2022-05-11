@@ -226,6 +226,15 @@ export const asyncRoutes = [
           title: 'DemoB',
           roles: ['admin', 'editor']
         }
+      },
+      {
+        path: 'overview-demo',
+        component: () => import('@/views/antV/overview'),
+        name: 'overview',
+        meta: {
+          title: '全景图',
+          roles: ['admin', 'editor']
+        }
       }
     ]
   },

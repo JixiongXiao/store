@@ -1,0 +1,239 @@
+{
+    "asset_groups_total": 8,
+	"groups_total": 3,
+    "kill_chains_total": 2,
+	"timestamp": "2022-04-18T21:00:00.000+08:00",
+    "asset_groups": [
+    {
+        "group_id": "1001000000",
+		"group_name": "江苏省电力有限公司",
+		"level": "2",
+        "rank": "A",
+        "score": "98",
+        "child": [
+		{
+            "group_id": "1001001000",
+		    "group_name": "南京电力有限公司",
+			"level": "3",
+		    "f_group_id": "1001000000",
+            "rank": "A",
+            "score": "98",
+			"child": [
+			{
+			    "group_id": "1001001001",
+				"group_name": "鼓楼电力有限公司",
+				"level": "4",
+			    "p_group_id": "1001000000",		
+		        "f_group_id": "1001001000",
+				"rank": "A",
+                "score": "98"
+			},
+			{
+			    "group_id": "1001001002",
+				"group_name": "建邺电力有限公司",
+				"level": "4",
+				"p_group_id": "1001000000",		
+		        "f_group_id": "1001001000",
+				"rank": "A",
+                "score": "98"
+			}
+			]
+        },
+		{
+            "group_id": "1001002000",
+		    "group_name": "苏州电力有限公司",
+			"level": "3",
+		    "f_group_id": "1001000000",
+            "rank": "A",
+            "score": "98"
+		},
+		{
+            "group_id": "1001002000",
+		    "group_name": "镇江电力有限公司",
+			"level": "3",
+			"f_group_id": "1001000000",
+            "rank": "A",
+            "score": "98"
+		}
+		]
+    },
+    {
+        "group_id": "1002000000",
+		"group_name": "浙江省电力有限公司",
+		"level": "2",
+        "rank": "B",
+        "score": "66"
+    },
+	{
+        "group_id": "1003000000",
+		"group_name": "广东省电力有限公司",
+		"level": "2",
+        "rank": "B",
+        "score": "66"
+    }
+    ],
+    "chains": [
+	{
+        "chain_id": "1",
+		"chain_rate": "87",
+		"assets_num": "4",
+		"vul_num": "5",
+		"chain_group_order":["1003000000","1002000000","1001000000"],
+		"assets_list": [
+		{
+            "asset_id": "1234567890",
+            "asset_name": "办公电脑T133-19",
+            "group_id": "1003000000",
+			"group_name": "广东省电力有限公司",
+            "asset_type": "host",
+			"fingerprint": {
+			    "ip": "165.27.6.12",
+                "port": "123,3389",
+			    "OS": "Windows"
+			},
+			"vuls": [
+			{
+			    "vul_id": "1234567890",
+			    "vul_name": "远程桌面代码执行",
+			    "vul_cve": "CVE-2019-0708"
+			},
+		    {
+			    "vul_id": "1234567890",
+			    "vul_name": "远程桌面代码执行",
+			    "vul_cve": "CVE-2019-0708"
+			}
+			]
+        },
+        {
+            "asset_id": "1234567890",
+            "asset_name": "办公电脑T133-19",
+            "group_id": "1003000000",
+			"group_name": "广东省电力有限公司",
+            "asset_type": "web",
+			"fingerprint": {
+			    "server": "apache",
+			    "site": "http://10.10.33.201:8082"
+			},
+			"vuls": [
+			{
+			    "vul_id": "1234567890",
+			    "vul_name": "远程桌面代码执行",
+			    "vul_cve": "CVE-2019-0708"
+			}
+			]
+        },
+        {
+            "asset_id": "1234567890",
+            "asset_name": "办公电脑T133-19",
+            "group_id": "1003000000",
+			"group_name": "广东省电力有限公司",
+            "asset_type": "web",
+			"fingerprint": {
+			    "server": "apache",
+			    "site": "http://10.10.33.201:8082"
+			},
+			"vuls": [
+			{
+			    "vul_id": "1234567890",
+			    "vul_name": "远程桌面代码执行",
+			    "vul_cve": "CVE-2019-0708"
+			}
+			]
+        },
+        {
+            "asset_id": "1234567890",
+            "asset_name": "办公电脑T133-19",
+            "group_id": "1002000000",
+			"group_name": "浙江省电力有限公司",
+            "asset_type": "web",
+			"fingerprint": {
+			    "server": "apache",
+			    "site": "http://10.10.33.201:8082"
+			},
+			"vuls": [
+			{
+			    "vul_id": "1234567890",
+			    "vul_name": "远程桌面代码执行",
+			    "vul_cve": "CVE-2019-0708"
+			}
+			]
+        }
+        ]
+    },
+	{
+	    "chain_id": "2",
+		"chain_rate": "677",
+		"asset_num": "3",
+		"vul_num": "5",
+		"chain_group_order":["1003000000"],
+		"assets_list": [
+		{
+            "asset_id": "1234567890",
+            "asset_name": "办公电脑T133-19",
+            "group_id": "1003000000",
+			"group_name": "广东省电力有限公司",
+            "asset_type": "host",
+			"fingerprint": {
+			    "ip": "165.27.6.12",
+                "port": "123,3389",
+			    "OS": "Windows"
+			},
+			"vuls": [
+			{
+			    "vul_id": "1234567890",
+			    "vul_name": "远程桌面代码执行",
+			    "vul_cve": "CVE-2019-0708"
+			},
+		    {
+			    "vul_id": "1234567890",
+			    "vul_name": "远程桌面代码执行",
+			    "vul_cve": "CVE-2019-0708"
+			}
+			]
+        },
+        {
+            "asset_id": "1234567890",
+            "asset_name": "办公电脑T133-19",
+            "group_id": "1003000000",
+			"group_name": "广东省电力有限公司",
+            "asset_type": "host",
+			"fingerprint": {
+			    "ip": "165.27.6.12",
+                "port": "123,3389",
+			    "OS": "Windows"
+			},
+			"vuls": [
+			{
+			    "vul_id": "1234567890",
+			    "vul_name": "远程桌面代码执行",
+			    "vul_cve": "CVE-2019-0708"
+			},
+		    {
+			    "vul_id": "1234567890",
+			    "vul_name": "远程桌面代码执行",
+			    "vul_cve": "CVE-2019-0708"
+			}
+			]
+        },
+		{
+            "asset_id": "1234567890",
+            "asset_name": "办公电脑T133-19",
+            "group_id": "1003000000",
+			"group_name": "广东省电力有限公司",
+            "asset_type": "web",
+			"fingerprint": {
+			    "server": "apache",
+			    "site": "http://10.10.33.201:8082"
+			},
+			"vuls": [
+			{
+			    "vul_id": "1234567890",
+			    "vul_name": "远程桌面代码执行",
+			    "vul_cve": "CVE-2019-0708"
+			}
+			]
+        }
+		]
+	}
+	]
+}

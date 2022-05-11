@@ -37,13 +37,21 @@ export default {
   },
   data() {
     return {
-      currentComponent: ''
+      currentComponent: '',
+      test: 123
     }
+  },
+  mounted() {
+    this.testData()
   },
   methods: {
     // 通用组件
     commonComponent(command) {
       this.currentComponent = command
+    },
+    testData() {
+      console.log(this.$options)
+      console.log(this.$data)
     }
   }
 }

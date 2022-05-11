@@ -1,8 +1,8 @@
 import G6 from '@antv/g6'
 
+// level1-blue
 G6.registerNode(
-  'levelA-blue',
-
+  'level1-blue',
   {
     options: {
       size: 160,
@@ -13,19 +13,12 @@ G6.registerNode(
         shadowColor: '#8CAAF2',
         shadowOffsetX: 1,
         shadowOffsetY: 5,
-        shadowBlur: 20
+        shadowBlur: 20,
+        cursor: 'pointer'
       },
 
       stateStyles: {
         // 鼠标hover状态下的配置
-
-        hover: {
-          lineWidth: 0,
-          stroke: '#FE9797',
-          shadowBlur: 10,
-          shadowColor: '#FE9797'
-          // opacity: 0
-        },
         active: {
           lineWidth: 3,
           stroke: '#1954E4',
@@ -33,12 +26,6 @@ G6.registerNode(
           shadowOffsetX: 1,
           shadowOffsetY: 5,
           shadowBlur: 20
-        },
-
-        // 选中节点状态下的配置
-
-        selected: {
-          lineWidth: 3
         }
       }
     },
@@ -100,9 +87,9 @@ G6.registerNode(
 
   'circle'
 )
+// level2-blue
 G6.registerNode(
-  'levelB-blue',
-
+  'level2-blue',
   {
     options: {
       size: 80,
@@ -113,19 +100,12 @@ G6.registerNode(
         shadowColor: '#8CAAF2',
         shadowOffsetX: 1,
         shadowOffsetY: 5,
-        shadowBlur: 20
+        shadowBlur: 20,
+        cursor: 'pointer'
       },
 
       stateStyles: {
         // 鼠标hover状态下的配置
-
-        hover: {
-          lineWidth: 0,
-          stroke: '#FE9797',
-          shadowBlur: 10,
-          shadowColor: '#FE9797'
-          // opacity: 0
-        },
         active: {
           lineWidth: 2,
           stroke: '#1954E4',
@@ -133,18 +113,10 @@ G6.registerNode(
           shadowOffsetX: 1,
           shadowOffsetY: 5,
           shadowBlur: 20
-        },
-
-        // 选中节点状态下的配置
-
-        selected: {
-          lineWidth: 3
         }
       }
     },
-
     // 绘制节点
-
     draw: function draw(cfg, group) {
       var shape = this.drawShape(cfg, group)
       if (cfg.label && cfg.label.length) {
@@ -152,9 +124,7 @@ G6.registerNode(
       }
       return shape
     },
-
     // 绘制label
-
     drawLabel: function drawLabel(cfg, group) {
       const width = 80
       group.addShape('text', {
@@ -170,12 +140,11 @@ G6.registerNode(
       })
     }
   },
-
   'circle'
 )
+// level3-blue
 G6.registerNode(
-  'levelC-blue',
-
+  'level3-blue',
   {
     options: {
       size: 24,
@@ -186,19 +155,11 @@ G6.registerNode(
         shadowColor: '#8CAAF2',
         shadowOffsetX: 1,
         shadowOffsetY: 5,
-        shadowBlur: 20
+        shadowBlur: 20,
+        cursor: 'pointer'
       },
-
       stateStyles: {
         // 鼠标hover状态下的配置
-
-        hover: {
-          lineWidth: 0,
-          stroke: '#FE9797',
-          shadowBlur: 10,
-          shadowColor: '#FE9797'
-          // opacity: 0
-        },
         active: {
           lineWidth: 1,
           stroke: '#1954E4',
@@ -206,12 +167,6 @@ G6.registerNode(
           shadowOffsetX: 1,
           shadowOffsetY: 5,
           shadowBlur: 20
-        },
-
-        // 选中节点状态下的配置
-
-        selected: {
-          lineWidth: 3
         }
       }
     }
@@ -219,9 +174,9 @@ G6.registerNode(
 
   'circle'
 )
+// level1-orange
 G6.registerNode(
-  'levelA-orange',
-
+  'level1-orange',
   {
     options: {
       size: 160,
@@ -231,18 +186,11 @@ G6.registerNode(
         shadowColor: '#ffc080',
         shadowOffsetX: 1,
         shadowOffsetY: 5,
-        shadowBlur: 20
+        shadowBlur: 20,
+        cursor: 'pointer'
       },
-
       stateStyles: {
         // 鼠标hover状态下的配置
-        hover: {
-          lineWidth: 0,
-          stroke: '#FE9797',
-          shadowBlur: 10,
-          shadowColor: '#FE9797'
-          // opacity: 0
-        },
         active: {
           lineWidth: 3,
           stroke: '#ff8000',
@@ -250,16 +198,9 @@ G6.registerNode(
           shadowOffsetX: 1,
           shadowOffsetY: 5,
           shadowBlur: 20
-        },
-
-        // 选中节点状态下的配置
-
-        selected: {
-          lineWidth: 3
         }
       }
     },
-
     // 绘制节点
     draw: function draw(cfg, group) {
       var shape = this.drawShape(cfg, group)
@@ -316,12 +257,65 @@ G6.registerNode(
       })
     }
   },
-
   'circle'
 )
+// level2-orange
 G6.registerNode(
-  'levelC-orange',
-
+  'level2-orange',
+  {
+    options: {
+      size: 80,
+      color: '#5B8FF9',
+      style: {
+        lineWidth: 0,
+        fill: 'r(0.6, 0.3, 0.8) 0:#ffc080 1:#ff8000',
+        shadowColor: '#ffc080',
+        shadowOffsetX: 1,
+        shadowOffsetY: 5,
+        shadowBlur: 20,
+        cursor: 'pointer'
+      },
+      stateStyles: {
+        // 鼠标hover状态下的配置
+        active: {
+          lineWidth: 2,
+          stroke: '#ff8000',
+          shadowColor: '#ffa24a',
+          shadowOffsetX: 1,
+          shadowOffsetY: 5,
+          shadowBlur: 20
+        }
+      }
+    },
+    // 绘制节点
+    draw: function draw(cfg, group) {
+      var shape = this.drawShape(cfg, group)
+      if (cfg.label && cfg.label.length) {
+        this.drawLabel(cfg, group)
+      }
+      return shape
+    },
+    // 绘制label
+    drawLabel: function drawLabel(cfg, group) {
+      const width = 80
+      group.addShape('text', {
+        attrs: {
+          text: cfg.label || '',
+          x: 0 - width / 2 + 5,
+          y: 0,
+          fill: '#ffffff',
+          fontWeight: 700,
+          textAlign: 'left',
+          textBaseline: 'middle'
+        }
+      })
+    }
+  },
+  'circle'
+)
+// level3-orange
+G6.registerNode(
+  'level3-orange',
   {
     options: {
       size: 24,
@@ -332,19 +326,11 @@ G6.registerNode(
         shadowColor: '#ffc080',
         shadowOffsetX: 1,
         shadowOffsetY: 5,
-        shadowBlur: 20
+        shadowBlur: 20,
+        cursor: 'pointer'
       },
 
       stateStyles: {
-        // 鼠标hover状态下的配置
-
-        hover: {
-          lineWidth: 0,
-          stroke: '#FE9797',
-          shadowBlur: 10,
-          shadowColor: '#FE9797'
-          // opacity: 0
-        },
         active: {
           lineWidth: 1,
           stroke: '#ff8000',
@@ -352,12 +338,6 @@ G6.registerNode(
           shadowOffsetX: 1,
           shadowOffsetY: 5,
           shadowBlur: 20
-        },
-
-        // 选中节点状态下的配置
-
-        selected: {
-          lineWidth: 3
         }
       }
     }
@@ -365,9 +345,9 @@ G6.registerNode(
 
   'circle'
 )
+// level1-red
 G6.registerNode(
-  'levelA-red',
-
+  'level1-red',
   {
     options: {
       size: 160,
@@ -377,19 +357,10 @@ G6.registerNode(
         shadowColor: '#f28c8c',
         shadowOffsetX: 1,
         shadowOffsetY: 5,
-        shadowBlur: 20
+        shadowBlur: 20,
+        cursor: 'pointer'
       },
-
       stateStyles: {
-        // 鼠标hover状态下的配置
-
-        hover: {
-          lineWidth: 0,
-          stroke: '#FE9797',
-          shadowBlur: 10,
-          shadowColor: '#FE9797'
-          // opacity: 0
-        },
         active: {
           lineWidth: 3,
           stroke: '#d72e2e',
@@ -397,12 +368,6 @@ G6.registerNode(
           shadowOffsetX: 1,
           shadowOffsetY: 5,
           shadowBlur: 20
-        },
-
-        // 选中节点状态下的配置
-
-        selected: {
-          lineWidth: 3
         }
       }
     },
@@ -465,9 +430,93 @@ G6.registerNode(
       })
     }
   },
-
   'circle'
 )
+// level2-red
+G6.registerNode(
+  'level2-red',
+  {
+    options: {
+      size: 80,
+      color: '#5B8FF9',
+      style: {
+        lineWidth: 0,
+        fill: 'r(0.6, 0.3, 0.7) 0:#f28c8c 1:#d72e2e',
+        shadowColor: '#f28c8c',
+        shadowOffsetX: 1,
+        shadowOffsetY: 5,
+        shadowBlur: 20,
+        cursor: 'pointer'
+      },
+      stateStyles: {
+        // 鼠标hover状态下的配置
+        active: {
+          lineWidth: 2,
+          stroke: '#d72e2e',
+          shadowColor: '#e8615e',
+          shadowOffsetX: 1,
+          shadowOffsetY: 5,
+          shadowBlur: 20
+        }
+      }
+    },
+    // 绘制节点
+    draw: function draw(cfg, group) {
+      var shape = this.drawShape(cfg, group)
+      if (cfg.label && cfg.label.length) {
+        this.drawLabel(cfg, group)
+      }
+      return shape
+    },
+    // 绘制label
+    drawLabel: function drawLabel(cfg, group) {
+      const width = 80
+      group.addShape('text', {
+        attrs: {
+          text: cfg.label || '',
+          x: 0 - width / 2 + 5,
+          y: 0,
+          fill: '#ffffff',
+          fontWeight: 700,
+          textAlign: 'left',
+          textBaseline: 'middle'
+        }
+      })
+    }
+  },
+  'circle'
+)
+// level3-red
+G6.registerNode(
+  'level3-red',
+  {
+    options: {
+      size: 24,
+      color: '#5B8FF9',
+      style: {
+        lineWidth: 0,
+        fill: 'r(0.6, 0.3, 0.7) 0:#f28c8c 1:#d72e2e',
+        shadowColor: '#f28c8c',
+        shadowOffsetX: 1,
+        shadowOffsetY: 5,
+        shadowBlur: 20,
+        cursor: 'pointer'
+      },
+      stateStyles: {
+        active: {
+          lineWidth: 1,
+          stroke: '#d72e2e',
+          shadowColor: '#e8615e',
+          shadowOffsetX: 1,
+          shadowOffsetY: 5,
+          shadowBlur: 20
+        }
+      }
+    }
+  },
+  'circle'
+)
+// assetRed
 G6.registerNode(
   'assetA',
   {
@@ -523,6 +572,7 @@ G6.registerNode(
   },
   'circle'
 )
+// assetBlue
 G6.registerNode(
   'assetB',
   {
@@ -577,6 +627,7 @@ G6.registerNode(
   },
   'circle'
 )
+// 资产名节点
 G6.registerNode(
   'asset-group',
   {
@@ -598,6 +649,78 @@ G6.registerNode(
     }
   },
   'circle'
+)
+// 攻击路线
+G6.registerEdge(
+  'atack-edge',
+  {
+    options: {
+      style: {
+        stroke: '#F16D90',
+        lineWidth: 5,
+        sourceAnchor: 0,
+        targetAnchor: 0,
+        cursor: 'pointer',
+        endArrow: {
+          path: G6.Arrow.triangle(2, 2, 5),
+          d: 5
+        }
+      },
+      stateStyles: {
+        hover: {
+          shadowColor: '#e8615e',
+          shadowBlur: 10
+        }
+      }
+    },
+    afterDraw(cfg, group) {
+      // get the first shape in the group, it is the edge's path here=
+      const shape = group.get('children')[0]
+      // the start position of the edge's path
+      const startPoint = shape.getPoint(0)
+
+      // add red circle shape
+      const circle = group.addShape('circle', {
+        attrs: {
+          x: startPoint.x,
+          y: startPoint.y,
+          fill: '#1890ff',
+          r: 5
+        },
+        name: 'circle-shape'
+      })
+      // animation for the red circle
+      circle.animate(
+        (ratio) => {
+          // the operations in each frame. Ratio ranges from 0 to 1 indicating the prograss of the animation. Returns the modified configurations
+          // get the position on the edge according to the ratio
+          const tmpPoint = shape.getPoint(ratio)
+          // returns the modified configurations here, x and y here
+          return {
+            x: tmpPoint.x,
+            y: tmpPoint.y
+          }
+        },
+        {
+          repeat: true, // Whether executes the animation repeatly
+          duration: 3000 // the duration for executing once
+        }
+      )
+    }
+  },
+  'line'
+)
+// 隐藏线
+G6.registerEdge(
+  'hide-edge',
+  {
+    options: {
+      style: {
+        lineWidth: 0
+      }
+    }
+  },
+  'line'
 )
 G6.registerNode(
   'assetNode',

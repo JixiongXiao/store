@@ -39,10 +39,6 @@ export default {
   name: 'AntVBubble',
   data() {
     return {
-      instance: '',
-      showText: false,
-      serverImg: require('../../icons/server.png'),
-      firewallImg: require('../../icons/firewall.png'),
       fruchterman: {
         type: 'fruchterman',
         preventOverlap: true,
@@ -52,6 +48,10 @@ export default {
         gpuEnabled: true,
         workerEnabled: true
       },
+      instance: '',
+      showText: false,
+      serverImg: require('../../icons/server.png'),
+      firewallImg: require('../../icons/firewall.png'),
       detail: {},
       hightlightNode: '',
       groupNodes: [],
@@ -184,9 +184,9 @@ export default {
         }
       }
       this.allnodes = data
-      console.log(this.assetL2)
-      console.log(this.allnodes)
-      console.log(this.nodesInGroup)
+      // console.log(this.assetL2)
+      // console.log(this.allnodes)
+      // console.log(this.nodesInGroup)
       const container = document.getElementById('graph-container')
       const width = container.scrollWidth
       const height = container.scrollHeight || 500
@@ -215,7 +215,15 @@ export default {
         modes: {
           default: ['drag-canvas', 'zoom-canvas', 'drag-node']
         },
-        layout: this.fruchterman,
+        layout: {
+          type: 'fruchterman',
+          preventOverlap: true,
+          gravity: 1,
+          clustering: true,
+          clusterGravity: 1,
+          gpuEnabled: true,
+          workerEnabled: true
+        },
         animate: true,
         defaultEdge: {
           style: {
