@@ -11,6 +11,9 @@
             command="click-outside"
           >点击div以外区域关闭div</el-dropdown-item>
           <el-dropdown-item command="right-menu">右键菜单</el-dropdown-item>
+          <el-dropdown-item
+            command="json-board"
+          >展示JSON格式数据</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -27,13 +30,15 @@ import Md5 from './components/md5'
 import ClickOutside from './components/click-outside'
 import Lazy from './components/lazy'
 import RightMenu from './components/right-menu'
+import JsonBoard from './components/json-board.vue'
 export default {
   name: 'Mytool',
   components: {
     ClickOutside,
     Lazy,
     RightMenu,
-    Md5
+    Md5,
+    JsonBoard
   },
   data() {
     return {
@@ -49,9 +54,11 @@ export default {
     commonComponent(command) {
       this.currentComponent = command
     },
-    testData() {
-      console.log(this.$options)
-      console.log(this.$data)
+    testData() {},
+    customNew(Con, ...param) {
+      const obj = {}
+      Con.call(obj, ...param)
+      obj.prototype = Con.prototype
     }
   }
 }
@@ -78,6 +85,10 @@ export default {
     width: calc(100% - 180px);
     height: 100%;
     padding: 16px;
+  }
+  .search-icon {
+    width: 200px;
+    height: 200px;
   }
 }
 </style>
