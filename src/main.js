@@ -22,6 +22,8 @@ import './utils/g6-utils' // G6 相关方法
 import * as filters from './filters' // global filters
 import Contextmenu from 'vue-contextmenujs' // 右键菜单
 
+import * as utils from './utils/index'
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -34,6 +36,8 @@ if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')
   mockXHR()
 }
+
+Vue.prototype.$checkTypeof = utils.checkTypeof
 
 Vue.use(Contextmenu)
 Vue.use(Element, {
