@@ -27,12 +27,13 @@ export default {
           'string1',
           'string2',
           {
-            arrString: 'string1'
+            arrNum: 123456
           }
         ],
         valueObj: {
           key1: 'string1',
-          key2: false
+          key2: false,
+          key3: null
         }
       }
     }
