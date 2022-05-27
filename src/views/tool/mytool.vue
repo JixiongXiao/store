@@ -14,6 +14,7 @@
           <el-dropdown-item
             command="json-board"
           >展示JSON格式数据</el-dropdown-item>
+          <el-dropdown-item command="code-test">代码测试页面</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -31,6 +32,7 @@ import ClickOutside from './components/click-outside'
 import Lazy from './components/lazy'
 import RightMenu from './components/right-menu'
 import JsonBoard from './components/json-board.vue'
+import CodeTest from './components/code-test.vue'
 export default {
   name: 'Mytool',
   components: {
@@ -38,7 +40,8 @@ export default {
     Lazy,
     RightMenu,
     Md5,
-    JsonBoard
+    JsonBoard,
+    CodeTest
   },
   data() {
     return {
@@ -46,19 +49,11 @@ export default {
       test: 123
     }
   },
-  mounted() {
-    this.testData()
-  },
+  mounted() {},
   methods: {
     // 通用组件
     commonComponent(command) {
       this.currentComponent = command
-    },
-    testData() {},
-    customNew(Con, ...param) {
-      const obj = {}
-      Con.call(obj, ...param)
-      obj.prototype = Con.prototype
     }
   }
 }
