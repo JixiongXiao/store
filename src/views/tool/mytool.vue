@@ -14,6 +14,7 @@
           <el-dropdown-item
             command="json-board"
           >展示JSON格式数据</el-dropdown-item>
+          <el-dropdown-item command="gsap-test">gsap动画测试</el-dropdown-item>
           <el-dropdown-item command="code-test">代码测试页面</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -33,6 +34,7 @@ import Lazy from './components/lazy'
 import RightMenu from './components/right-menu'
 import JsonBoard from './components/json-board.vue'
 import CodeTest from './components/code-test.vue'
+import GsapTest from './components/gsap-test.vue'
 export default {
   name: 'Mytool',
   components: {
@@ -41,7 +43,8 @@ export default {
     RightMenu,
     Md5,
     JsonBoard,
-    CodeTest
+    CodeTest,
+    GsapTest
   },
   data() {
     return {

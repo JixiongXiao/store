@@ -41,11 +41,9 @@ export default {
       currentComponent: ''
     }
   },
-  mounted() {
-    this.test()
-  },
+  mounted() {},
   methods: {
-    test() {
+    testThisPoint() {
       const object = createObj(this)
       console.log(object['a'][0]['b']['d'])
     },

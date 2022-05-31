@@ -1,4 +1,13 @@
-import { Vector3, WebGLRenderer, Scene, PerspectiveCamera, AmbientLight, AxesHelper, GridHelper, MOUSE } from 'three'
+import {
+  Vector3,
+  WebGLRenderer,
+  Scene,
+  PerspectiveCamera,
+  AmbientLight,
+  AxesHelper,
+  GridHelper,
+  MOUSE
+} from 'three'
 import Stats from 'three/examples/jsm/libs/stats.module'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
@@ -12,7 +21,12 @@ export class TEngine {
 
     this.renderer.shadowMap.enabled = true
     this.scene = new Scene()
-    this.camera = new PerspectiveCamera(45, dom.offsetWidth / dom.offsetHeight, 1, 1000)
+    this.camera = new PerspectiveCamera(
+      45,
+      dom.offsetWidth / dom.offsetHeight,
+      1,
+      1000
+    )
     // 相机位置，相机指向，相机角度
     this.camera.position.set(20, 20, 20)
     this.camera.lookAt(new Vector3(0, 0, 0))
@@ -21,8 +35,11 @@ export class TEngine {
     this.renderer.setSize(dom.offsetWidth, dom.offsetHeight, true)
 
     // 轨道控制器 开启后必须在重复render的方法中调用update方法
-    const orbitControls = new OrbitControls(this.camera, this.renderer.domElement)
-    // orbitControls.autoRotate = true // 轨道自动旋转
+    const orbitControls = new OrbitControls(
+      this.camera,
+      this.renderer.domElement
+    )
+    orbitControls.autoRotate = true // 轨道自动旋转
     orbitControls.enableDamping = true // 开启阻尼，产生重量感
     // 设置鼠标 MOUSE为three内置对象
     orbitControls.mouseButtons = {

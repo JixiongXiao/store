@@ -20,10 +20,11 @@ export default {
       ['a', 'ahaha'],
       ['b', 'bhaha']
     ])
-    console.log(testMap)
   },
   methods: {
-    handleRun() {},
+    handleRun() {
+      console.log(Date.now())
+    },
     customNew(Con, ...param) {
       const obj = {}
       Con.call(obj, ...param)
