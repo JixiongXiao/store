@@ -21,7 +21,7 @@
     </div>
     <div class="component-container">
       <keep-alive>
-        <component :is="currentComponent" />
+        <component :is="currentComponent" msg="fromLevel1" />
       </keep-alive>
     </div>
   </div>

@@ -2,13 +2,18 @@
   <div>
     <div>代码测试页</div>
     <el-button @click="handleRun">运行</el-button>
+    <TemCom v-bind="$attrs" />
   </div>
 </template>
 
 <script>
 import { createObj, flatArr } from '../test'
+import TemCom from './temp-component.vue'
 export default {
   name: 'CodeTest',
+  components: {
+    TemCom
+  },
   data() {
     return {
       mulArr: [1, 2, [3, 4], 5, [[6, 7], 8]],
