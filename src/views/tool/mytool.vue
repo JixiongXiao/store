@@ -14,6 +14,9 @@
           <el-dropdown-item
             command="json-board"
           >展示JSON格式数据</el-dropdown-item>
+          <el-dropdown-item
+            command="sync-com"
+          >子组件模拟v-model</el-dropdown-item>
           <el-dropdown-item command="gsap-test">gsap动画测试</el-dropdown-item>
           <el-dropdown-item command="code-test">代码测试页面</el-dropdown-item>
         </el-dropdown-menu>
@@ -35,6 +38,7 @@ import RightMenu from './components/right-menu'
 import JsonBoard from './components/json-board.vue'
 import CodeTest from './components/code-test.vue'
 import GsapTest from './components/gsap-test.vue'
+import SyncCom from './components/sync-component.vue'
 export default {
   name: 'Mytool',
   components: {
@@ -44,7 +48,8 @@ export default {
     Md5,
     JsonBoard,
     CodeTest,
-    GsapTest
+    GsapTest,
+    SyncCom
   },
   data() {
     return {

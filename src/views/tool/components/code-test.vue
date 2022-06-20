@@ -3,6 +3,10 @@
     <div>代码测试页</div>
     <el-button @click="handleRun">运行</el-button>
     <TemCom v-bind="$attrs" />
+    <div class="father-box">
+      父级
+      <div class="son-box">子级</div>
+    </div>
   </div>
 </template>
 
@@ -39,4 +43,17 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+@import '@/styles/variables.scss';
+@import '@/styles/mixin.scss';
+.father-box {
+  font-size: 30px;
+  border: 1px solid red;
+  width: 10em;
+  .son-box {
+    font-size: 20px;
+    border: 1px solid green;
+    width: 10em;
+  }
+}
+</style>
