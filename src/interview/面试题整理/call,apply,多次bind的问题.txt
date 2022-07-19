@@ -1,0 +1,36 @@
+在Javascript中，多次 bind() 是无效的。更深层次的原因， bind() 的实现，
+相当于使用函数在内部包了一个 call / apply ，第二次 bind() 相当于再包住第一次 bind() ,故第二次以后的 bind 是无法生效的。
+
+如果 call,apply 或者 bind 传入的第一个参数值是 undefined 或者 null，
+严格模式下 this 的值为传入的值 null /undefined。非严格模式下，实际应用的默认绑定规则，
+this 指向全局对象(node环境为global，浏览器环境为window)
+
+
+自定义call
+Function.prototype.newcall = function(obj, ...args){
+    //obj如果是null或者undefined 指向window
+    obj = obj || window;
+    //保存被执行的函数this
+    obj.fnc = this;
+    obj.fnc(...args);
+    delete obj.fnc
+}
+
+自定义apply
+Function.prototype.newapply = function(obj, arg){
+    //obj如果是null或者undefined 指向window
+    obj = obj || window;
+    obj.fnc = this;
+    obj.fnc(...args);
+    delete obj.fnc
+}
+
+自定义bind
+Function.prototype.newbind = function (obj,...args){
+let that = this;
+//这里的that指的是被调用的函数，所以下面的写法实际就是
+//()=>{function.call()}
+return (...args2)=>{
+    that.call(obj,...args,...args2);
+}
+}

@@ -1,0 +1,31 @@
+let a = [1,2,3];
+//浅拷贝
+//...运算符，
+let b = [...a];
+
+//Object.assign();
+let b = Object.assign([],a);
+
+首先深复制和浅复制只针对像 Object, Array 这样的复杂对象的。简单来说，浅复制只复制一层对象的属性，而深复制则递归复制了所有层级。
+
+深拷贝最简单方法
+// let newObj = JSON.parse(JSON.stringify(obj));
+【弊端】
+//   + 不允许出现套娃操作
+//   + 属性值不能是BigInt  Uncaught TypeError: Do not know how to serialize a BigInt
+//   + 丢失一些内容：只要属性值是 symbol/undefined/function 这些类型的
+//   + 还有信息不准确的，例如：正则->空对象  Error对象->空对象  日期对象->字符串  ...
+
+function clonedeep (obj){
+let type = typeof obj;
+if(type === null) return null;
+if(type !== "object") return obj;
+let ctor = obj.constructor;
+if(/^(RegExp|Date)$/i.test(ctor.name)) return new ctor(obj);
+let clone = new ctor;
+for (let key in obj){
+    if(!obj.hasOwnProperty) break;
+    clone[key] = clonedeep(obj[key]);
+}
+return clone;
+}

@@ -1,0 +1,61 @@
+
+https://zhuanlan.zhihu.com/p/32894040  --详细解答
+promise的一个讲解流程
+1浏览器js执行顺序问题，单线程，通过事件队列和事件循环实现异步编程
+promise就是管理异步编程的一个工具
+2通过new一个promise的实例来使用，promise实例内部有个promiseState代表promise三种状态 pending fulfilled和rejected
+这三个状态将会指示promise后面的异步任务执行问题。 promise实例内部有两个方法。reslove() 和 rejecte()。
+当我们创造一个promise实例，我们可以放进一个需要同步执行的函数，我们将promise这两个方法作为参数传递到函数内部，并且
+再函数内部执行。
+3这两个方法会把promise的状态传递给promise后面的then，then可以接受promise的状态和传递下来的参数，同时
+then可以将我们想要执行的函数放进微任务队列中。但是“放进任务队列”这个行为依然是同步进行的，就算还不知道promise的状态
+此时任务在队列中就会等待promise的指示。还有一点就是，在微任务队列中，任务执行顺序和进入队列的顺序无关，
+“谁先知道谁可以执行，谁就先执行”
+then中可以放置两个回调函数，用来接受promise的两种状态，不同的状态触发不同的函数，当then中只设置了接受成功态的函数，
+那么promise的失败状态会被链式调用的下一个then捕捉，因此我们常用promise原型中的catch方法来最终捕捉失败态。
+
+promise的缺点
+1、无法取消Promise,一旦新建它就会立即执行，无法中途取消。
+
+2、如果不设置回调函数，promise内部抛出的错误，不会反应到外部。
+
+3、当处于pending状态时，无法得知目前进展到哪一个阶段（刚刚开始还是即将完成）
+
+JS单线程 JS线程中只能同时处理一件事，就是代码是从上往下按顺序运行的，也就是说如果当前js线程中在处理一个任务，
+         那就没办法处理其他任务。这可以理解为同步编程
+         但是浏览器基于事件队列和事件循环两大机制，可以实现异步编程的效果。
+         浏览器在加载页面时会开辟一个内存叫execution context stack 执行环境栈，也可以理解为JS引擎线程或者主线程，
+         在这个过程中，js任务按顺序进栈执行然后出栈。
+         同时浏览器会创建一个事件队列eventqueue，用来存放异步任务。这个任务队列中有两种任务，microtask微任务和macrotask宏任务。
+         JS虽然大部分的代码是同步编程的，但是还有少部分操作是异步编程。JS线程在运行js代码的时候，这些异步操作就会被放进事件队列中。
+         promise就是一种异步微任务。当主线程任务运行完毕之后，浏览器就会开始在异步任务队列中寻找达到执行条件的微任务，并挪至主线程运行，
+         ！（如果一次查找中发现有N个任务都可以执行，那么谁最先到达执行条件的就先执行，而不是从上到下运行）
+         当没有可执行的微任务之后浏览器就会在宏任务队列中查找可执行的宏任务。
+
+3 实战
+promise.then是最基础的用法，promise后面的回调函数依然是同步运行的，同时这个回调函数中有两个参数reslove和reject，promise的回调函数
+在执行的同时，会把这个promise实例的状态传递给它的下一个步骤then，
+promise有三种状态 pending等待 fulfilled完成 和rejected拒绝，如果promise的回调函数没有传递reslove或者reject,那这个promise的状态是pending，
+当resolve执行会把promise的状态改为fulfilled，并通知下一个then去执行
+它的标记成功的回调函数。这一步骤会被放入异步微任务中。
+
+每一个then执行后都会返回一个promise实例，then成功执行，这个promise状态会变成成功，then执行失败，就会编程失败，这个promise实例的状态会影响
+接下来的then的运行
+
+4总结
+promise本身不是异步得，它是用来管理异步编程的方法，内部的then方法是异步得微任务。然后也发现可以解决回调地狱的问题
+
+异步宏任务
+定时器 ajax 事件绑定（DOM事件）
+异步微任务
+promise
+async await 
+generator
+-------------------------------
+promise.all的用法
+promise.all([]).then(); all中的参数为一个数组，数组每一项都应该是一个promise实例，当all中所有promise执行完毕，并且
+都为成功，那么promise状态会变成fulfilled,并且传到一个数组给then，数组的每一项就是对应的每一个promise的返回值
+
+
+
+https://zhuanlan.zhihu.com/p/32894040

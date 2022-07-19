@@ -1,0 +1,43 @@
+一、window.onload
+
+
+当一个文档完全下载到浏览器中时，会触发 window.onload 事件。这意味着页面上的全部元素对 javascript 而言都是可以访问的，这种情况对编写功能性的代码非常有利，因为无需考虑加载的次序。
+
+ 
+
+ 
+
+ 
+
+二、$(document).ready()
+
+
+通过 $(document).ready() 注册的事件处理程序，则会在 DOM 完全就绪并可以使用时调用。虽然这也意味着所有元素对脚本而言都是可以访问的，
+但是，缺不意味着所有关联的文件都已经下载完毕。换句话说，当 HTML 下载完成并解析为 DOM 树之后，代码就可以运行。
+
+ 
+
+ 
+
+三、window.onload和$(document).ready的区别
+
+ 
+
+1.执行时间
+
+window.onload必须等到页面内包括图片的所有元素加载完毕后才能执行。
+$(document).ready()是DOM结构绘制完毕后就执行，不必等到加载完毕。
+
+
+
+2.编写个数不同
+
+window.onload不能同时编写多个，如果有多个window.onload方法，只会执行一个
+$(document).ready()可以同时编写多个，并且都可以得到执行
+
+
+
+3.简化写法
+
+window.onload没有简化写法
+$(document).ready(function(){})可以简写成$(function(){});

@@ -1,0 +1,67 @@
+笔记：
+我对发布订阅模式的感觉是，我觉得它有点像是二级绑定事件的原理，同样也是用事件池来存储事件
+发布订阅模式的基本概念就是，我们创造一个数组，也就是事件池，来存储我们需要执行的事件，
+但是事件此时都是沉睡状态的，我们可以移入事件，也可以移除事件。我们需要有一个触发器去触发
+这个池子内的事件去执行。
+
+具体的用法是，我们可以写一个自执行函数，函数内部有订阅方法和接触订阅方法，来从事件池中增加跟删除事件，
+然后还有一个方法是trigger，用来触发事件。trigger可以遍历整个事件池，然后触发所有被添加的函数
+
+
+(function(){
+    let eventPond=[];                                             //自己创造事件池
+
+    function subscribe(){                                        //向事件池加入方法
+    if(!eventPond.includs(func)) {
+    eventPond.push(func)}                                        //去重处理，当事件池内没有这个事件，加入事件池
+    return function unsubscribe(){                               //每一次加入后会返回一个方法，用来移除事件
+            eventPond = eventPond.filter(item=>{
+              return item !== func                               //返回不等于func的其他事件，其实也就是去除了func事件
+            } )
+    }
+    }
+
+    subscribe.trigger = function trigger(...params){             //通知事件池的方法执行
+        eventPond.forEach(item=>{
+            if(typeof item ==='function'){
+                item(...params);
+            }
+        })
+
+    }
+
+    window.subscribe = subscribe;
+})()
+subscribe.trigger();                                              //触发事件池的事件
+
+笔记：我个人觉得发布订阅主要是有利于代码的管理。假设我们当前有5个模块ABCDE，同时由5个人在开发，
+      那么每个人完成这个需求之后只需要把要执行的函数加入事件池，管理者只要通过trigger这个函数
+      就可以执行所有的函数，当后续还有更多的需求时，只需要一直加入事件池就可以。
+      也就是说到达了某个阶段，需要执行很多方法，但是具体执行多少个都不清楚，都可以基于发布订阅模式来管理代码
+      创建事件池-> 发布计划 添加事件-> 向计划表中订阅任务
+
+
+
+// A
+const fn1 = data => {};
+subscribe(fn1);
+
+// B
+const fn2 = data => {};
+subscribe(fn2);
+
+// C
+const fn3 = data => {};
+subscribe(fn3);
+
+// D
+const fn4 = data => {};
+subscribe(fn5);
+
+// E
+const fn5 = data => {};
+subscribe(fn5);
+
+改良---当项目越来越大的时候，一个事件池肯定是不够的，基于面向对象的思想，我们也可以用类和实例的方法来实现发布订阅模式
+       这同时也是生成器/构造器模式的思想，我们可以创造一个类，每个类的实例都含有一个事件池，并且都可以使用类中公共的方法。
+       还有事件池也可以不是单纯的数组，后续也会根据项目需求去改变数据结构。

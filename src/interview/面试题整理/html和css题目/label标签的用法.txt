@@ -1,0 +1,8 @@
+   label标签通常写在form内部，用来关联一个控件，用法如下
+   
+   <label for="inp" accesskey="N">姓名</label>
+    <input id='inp' type="text"  >
+
+    两个属性 for 表示服务于哪个控件，指向控件id
+     accesskey 代表热键
+     当用户点击这个label的时候，自动聚焦此控件 

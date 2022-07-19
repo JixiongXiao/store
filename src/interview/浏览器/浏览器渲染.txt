@@ -1,0 +1,98 @@
+/*
+当用户在浏览器地址栏输入网址的时候，会经历三个阶段
+HTTP请求阶段 (知识点：DNS解析，TCP协议的三次握手和四次挥手，HTTPS和HTTP区别)
+       ->HTTP响应阶段 (知识点：HTTP状态码，304缓存，HTTP报文)
+            ->浏览器渲染阶段
+更具体如下：
+1.DNS 解析
+2.TCP 三次握手 (请求链接，4次挥手是断开连接)
+3.发送请求，分析 url，设置请求报文(头，主体)
+4.服务器返回请求的文件 (返回HTML文件)
+5.浏览器渲染
+ HTML parser --> DOM Tree
+   标记化算法，进行元素状态的标记
+   dom 树构建
+ CSS parser --> Style Tree
+   解析 css 代码，生成样式树
+ attachment --> Render Tree
+   结合 dom树 与 style树，生成渲染树
+ layout: 布局 （回流）
+ GPU painting: 像素绘制页面（重绘）
+*/
+
+//https://www.bilibili.com/video/BV1ZE411r7ri?from=search&seid=4296518921539951625 掌握浏览器渲染原理
+//https://www.bilibili.com/video/BV1dt411W7Y4?from=search&seid=5067825180995292706 浏览器渲染以及事件循环
+
+//浏览器渲染
+
+/*
+                             DOM
+                             ↓
+HTML ---> HTML Parser --->   DOM TREE           Layout
+                             ↓                    ↑↓
+                             Attachment  ---> Render Tree ---> Painting ----> Display
+                             ↑
+ Style  --> Css Parser --->  Style Rules
+Sheets
+
+    浏览器拿到代码后 
+1.第一件事：在内存条中开辟一块栈内存，用来给代码执行提供环境；同时分配一个主线程去解析和执行代码（所以JS是单线程）
+当浏览器遇到link/script/img等请求后，会开辟新的线程去加载文件(所以浏览器是多线程的)
+此时任务队列会加载CSS,JS，IMG文件等等，但是主线程依然从上到下执行html文件，第一次渲染完毕，只生成DOM树
+   构建DOM的大致过程如下：
+      通过网络获取字节流和字符；
+      对字符序列进行分词操作，得到一个个token；
+      根据token序列分析语法，得到一个个节点node；
+      根据node序列，分析并构建DOM树。
+
+主线程生成DOM树后，开始从任务队列获取其他任务，解析CSS 并生成CSSOM (CSS object model CSS对象模型)
+https://www.jianshu.com/p/7c3e2493c7a7 什么是CSSOM 
+
+2.浏览器会结合DOM TREE和 CSSOM 生成Render Tree 渲染树
+
+3.Layout(回流) 根据生成的渲染树 计算她们在设备视口(viewport)内的确切位置和大小，这个计算的阶段就是回流
+
+4.Painting(重绘) 根据渲染树以及回流得到的几何信息，得到节点的绝对像素
+
+5.Display 将像素发给GPU 展示在页面上
+
+*/
+/*
+性能优化法则第一条：减少HTTP请求次数和大小：
+        1资源合并压缩，比如图片，CSS文件。
+        2图片懒加载
+        3音频视频走流文件      
+还有DNS缓存 304缓存 性能优化
+*/
+/* DOM的重绘和回流 Repaint & Reflow
+重绘：元素样式的改变（宽高，大小，位置等不变）
+     如 outline, visibility, color, background-color
+
+回流：元素的大小或者位置发生了变化（当页面布局和几何信息发生变化的时候），触发了重新布局，导致渲染树重新计算布局和渲染
+     如添加或删除可见的DOM元素；元素位置，尺寸，内容（文本变化或者图片被不同尺寸图片代替）发生变化；页面一开始的渲染（这个无法避免）；
+     回流是根据视窗的大小计算元素的位置和大小的，浏览器窗口尺寸变化也会引发回流
+注意：回流一定会触发重绘，重绘不一定会回流          
+*/
+/*
+性能优化法则第二条：避免DOM的回流和重绘
+     1 放弃操纵DOM的时代，基于VUE/REACT 开始数据影响视图模式
+        mwm/mvc/vitual dom/dom diff
+     2 分里读写操作 (现代浏览器都有渲染队列（批量渲染）的机制)
+     3 批量处理样式
+        dom.style.cssText = '';(此方法基本不用)
+        设置一个新的class,预先设置好样式, dom.className = '新class'
+     4 缓存处理
+       let a = box.clientWidth; （本质样式分里读写，事先缓存数据）
+       box.style.width = a + 10 + 'px';    
+     5 字符串拼接 视频回流重绘第29分钟开始
+     6 动画效果应用到position属性为absolute或者fixed的元素上（脱离文档流）
+     7 CSS3硬件加速（GPU加速） 比如transform/opacity/filters，使用transform会开启硬件加速
+        原： box.style.left ='100px'  
+        改:  box.style.transform ='translateX(100px)'; 此方法不会引发回流，transform开启浏览器硬件加速
+     8 牺牲平滑度换取速度
+        比如移动box，本来移动1px每次，可以牺牲平滑度换取速度，比如移动3px每次
+     9 避免table布局 和 使用 css 的javascript表达式   
+
+ */
+
+ //link和import的差别

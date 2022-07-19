@@ -1,0 +1,49 @@
+数据类型检测的办法
+1.typeof [value]：返回一个字符串，字符串中包含了对应的数据类型
+ *      特点：
+ *      + typeof null ->"object"
+ *      + typeof 不能细分对象
+ *      + typeof new Number(10) ->"object"
+ *      -->typeof很适合用于 原始值数据类型(不含null)以及函数等值的检测
+ *      -->原理：根据计算机底层存储的“二进制值”来检测的「性能会好一些」
+ *      面试题：typeof typeof [] -> "string" /因为typeof 会返回一个字符串
+ * 
+ *    2.[实例] instanceof [构造函数]
+ *      本意:不是检测数据类型，而是检测当前实例是否属于这个类，用来检测数据类型，仅是“临时拉来当壮丁”，所以存在很多弊端「可以基于instanceof细分对象类型」
+ *      原理:首先按照 [构造函数][Symbol.hasInstance]([实例]) ，如果存在这个属性方法，则方法执行返回的值就是最后检测的结果；
+ *           如果不存在这个属性方法，则会查找当前[实例]的原型链（一直找到Object.prototype为止），如果查找中途，
+ *           找到的某个原型等于[构造函数]的原型「即：构造函数的原型出现在其原型链上」则返回结果是true，反之false！！
+ *       缺点：
+ *       + 因为原型可以被重定向，所以检测的结果不一定准确
+ *       + 原始值类型使用instanceof是无法检测的
+ * 
+ *    3.[对象].constructor===[构造函数]
+ *      本意:获取对象的构造函数，所以他也是“临时拉来当壮丁”，也存很多的弊端
+ *        + constructor是可以允许被肆意更改的，检测结果是不准确的
+ * 
+ *    4.Object.prototype.toString.call([value])
+ *      推荐方案：除了写起来麻烦一些，没有弊端
+ *      原理:首先找到Object.prototype.toString方法，把toString执行的之后，让方法中的this变为要检测的这个值，
+ *           toString内部会返回对应this「也就是要检测这个值」的数据类型信息 “[object ?]”
+ * 
+ *         + 补充:大部分值(实例)所属类的原型上都有toString方法,除了Object.prototype.toString是用来检测数据类型的，其余的一般都是用来转换为字符串的...
+ *         + “[object Number/String/Boolean/Null/Undefined/Symbol/BigInt/Object/Array/RegExp/Date/Error/Function/GeneratorFunction/Math...]”
+ *         + 原理：
+ *           ?是啥，首先看 [value][Symbol.toStringTag] ，如果存在这个属性，属性值是啥，“?”就是啥；如果没有这个属性，一般是返回所属的构造函数信息...
+ *      
+ * ------一些特殊办法
+ * Array.isArray([value]):检测[value]是否是数组
+ * isNaN([value]):检测[value]是否为有效数字
+ * ...
+
+ instanceof 的封装
+
+function instance_of(obj,classFunction){
+    let prototype = Object.getPrototypeOf(obj);
+    while(prototype){
+        if (prototype = classFunction.prototype) return true;
+        prototype = Object.getPrototypeOf(prototype);
+
+    }
+    retrun false
+}

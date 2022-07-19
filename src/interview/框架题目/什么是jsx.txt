@@ -1,0 +1,54 @@
+JSX，即javscript XML，是js内定义的一套XML语法。目前是使用babel作为JSX的编译器。这也是在前几期中载入babel的原因。
+
+Facebook引入JSX是为了解决前端代码工程复杂、维护困难等问题。JSX为我们提供了一种虚拟DOM的实现方式。
+ 通过使用类XML语法的JSX，定义虚拟的DOM，以减少真实DOM的操作，从而提高运行效率。由于JSX的使用，在React项目中创建Components变得相当简单，
+用户可以将程序逻辑（programming logic）和标记语言（markup）混合在一起使用，促进代码的可读性、可预测性，有效的提高代码的维护效率。
+
+一、什么是JSX?
+
+1、jsx是JavaScript的一种语法扩展，它跟模板语言很接近，但是它充分具备JavaScript的能力。
+
+2、Facebook公司给JSX的定位是JavaScript的扩展（直接决定了浏览器并不会像天然JavaScript一样地支持JSX，需要通过babel转译）
+
+3、JSX会被babel编译为：React.createElement()，React.createElement()将返回一个叫作“ReactElement”的JS对象。
+
+认识Babel:是一个工具链，主要用于将ECMAScript 2015+版本的代码转换为向后兼容的JavaScript的语法，以便能够运行在当前和旧版本的浏览器或其他环境中。
+
+二、React为什么要用JSX?
+
+JSX语法糖允许前端开发者使用我们最熟悉的类HTML标签语法来创建虚拟DOM在降低学习成本的同时，也提升了研发效率与研发体验。
+
+三、如何使用JSX？
+
+1、在 JSX 语法中，你可以在大括号内放置任何有效的 JavaScript 表达式。
+
+例如：const title = 'World'; const element = <h1>Hello, {title}</h1>;
+
+2、在属性中嵌入 JavaScript 表达式时，不要在大括号外面加上引号。
+
+例如：
+
+1）你可以通过使用引号，来将属性值指定为字符串字面量：
+
+ const element = <div tabIndex = "0"></div>;   
+
+2）也可以使用大括号，来在属性值中插入一个 JavaScript 表达式： 
+
+const element = <img src = {user.avatarUrl}></img>;
+
+3、因为 JSX 语法上更接近 JavaScript 而不是 HTML，所以 React DOM 使用 camelCase（小驼峰命名）来定义属性的名称，而不使用 HTML 属性名称的命名约定。
+
+例如：JSX 里的 class 变成了 className，而 tabindex 则变为 tabIndex。
+
+4、JSX中的标签可以是单标签，也可以是双标签，但必须保证标签是闭合的。
+
+例如：
+
+单标签：constelement = <img src = {user.avatarUrl }/>;
+
+双标签：const element = (<div>  <h1> Hello World ! </h1> </div>);
+
+作者：隔壁甜言
+链接：https://www.jianshu.com/p/9b4fba29deac
+来源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。

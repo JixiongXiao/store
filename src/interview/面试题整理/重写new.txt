@@ -1,0 +1,19 @@
+new一个新对象会发生3件事
+·创建一个构造函数的实例，实例的原型链指向构造函数的原型对象
+·把构造函数当作普通函数执行，让方法中的this指向实例对象
+·确认方法执行的返回值，如果没有返回值或者返回的是原始值，则让其默认返回实例
+
+function _new(Ctor, ...params){
+    let obj, result,
+        proto = Ctor.prototype;
+        ct = typeof Ctor
+
+                //校验规则
+        //如果ctor不是一个函数或者它的原型对象不存在，则不能运行
+        if(typeof Ctor !== "function" || !proto) throw new TypeError('${Ctor} is not a constructor')
+
+    obj = Object.create(Ctor.prototype);
+    result = Ctor.call(obj,...params);
+    if(result !== null && /^(object|function)$/.test(typeof result) return result;
+    return obj; 
+}

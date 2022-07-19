@@ -1,0 +1,54 @@
+https://m.html.cn/qa/javascript/11406.html
+
+1 原型链继承
+第一种最简单的是原型链继承
+构造函数B的prototype指向构造函数A的一个实例
+
+B.prototype = new A()
+
+缺点是之继承了原型没有继承A的属性，当我们在new一个构造函数时，构造函数也会被当作普通函数执行一次，
+也就是说原型链继承这种方式，并没有继承构造函数内部的属性
+
+
+2 第二种是借用构造函数 在构造函数B的内部用call或者apply的方式调用构造函数A
+
+function B(){
+    A.call(this);
+}
+这种方式的缺点跟原型链继承相反，继承了构造函数A的属性，但是没有继承原型，
+
+3 所以最常用的就是将上面两个方法组合起来的组合继承
+
+function B(){
+    A.call(this);
+}
+B.prototype = new A();
+
+缺点是 构造函数A执行了两次，浪费内存，所以有另一种方法
+
+4寄生组合式继承，有些地方说这种方式也叫圣杯模式
+
+function B(){
+    //这一步不能被省略，因为要执行A内部的业务逻辑
+    A.call(this);
+}
+//所以改良方法从new A() 下手
+
+var prototype = Object.create(A.prototype)               用ES6的方法 我们创造了一个A的prototype的复制品
+B.prototype = prototype                                  再把这个prototype赋值给B的原型，那么这就成功继承了。
+B.prototype.constructor = B                              最后我们再手动修改一下B的原型对象里面的ctor让他指向B本身
+B.prototype.uber = A.prototype                           我们还可以再B的原型对象上加入一个超类uber，就可以记录父类构造函数
+
+寄生组合式继承虽然可以克服以上的所有缺点，但是依然有一个弊端，就是他覆盖掉了B 本身的原型对象，
+也就是说B本来内部如果存放了一些方法，就会丢失
+
+
+
+其他的方式 es6的extends继承
+class A {
+
+}
+
+class Sub{
+    
+}

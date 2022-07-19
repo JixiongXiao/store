@@ -1,0 +1,8 @@
+Class FN {
+x = 100; x是私有的，在实例中
+getX = function(){}  getX是私有的，在实例中
+getY() {} getY是公有的，在prototype中
+static z = 100; 把FN当作对象，存储z，z与上面所有东西都无关
+static getZ() {} FN为对象存储getZ
+}
+FN.prototype.y = 100 设置公有的值非函数的属性，必须在外部设立

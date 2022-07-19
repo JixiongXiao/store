@@ -1,0 +1,97 @@
+[1]-px和em的区别 / 视口单位 / rem
+PX特点
+
+1. IE无法调整那些使用px作为单位的字体大小；
+2. 国外的大部分网站能够调整的原因在于其使用了em或rem作为字体单位；
+3. Firefox能够调整px和em，rem，但是96%以上的中国网民使用IE浏览器(或内核)。
+EM
+em是相对长度单位。相对于当前对象内文本的字体尺寸。如当前对行内文本的字体尺寸未被人为设置，则相对于浏览器的默认字体尺寸。
+
+EM特点
+
+1. em的值并不是固定的；
+2. em会继承父级元素的字体大小。
+
+rem是什么？
+它的全称是 font size of the root element （根元素的字体大小）
+它是CSS3中新增加的一个尺寸（度量）单位，根节点（html）的font-size决定了rem的尺寸，也就是说它是一个相对单位，相对于(html)。
+
+
+浏览器的默认字体？
+浏览器的默认的font-size是16px，1rem默认就等于16px。（chrome最小字体为12px）
+
+
+视口单位 viewpoint units
+    1.vw：1vw等于视口宽度的1%。
+
+      2.vh：1vh等于视口高度的1%。
+
+      3.vmin：选取vw和vh中最小的那个。
+
+      4.vmax：选取vw和vh中最大的那个。
+
+
+[2]-控制dom修改样式
+document.getElmementById("id").style.color = blue;
+
+[3]-行内元素和块级元素的区别
+
+行内元素（inline）和块级元素（block）都是display属性的值。要知道行内元素和块级元素的区别，首先要了解他们的特性。
+
+行内元素的特性：“行内”，顾名思义，在一行之内，所以相邻的行内元素在同一行，当他们宽度超过了容器的宽度才会自动换行。
+行内元素的width、height、内边距的 top/bottom和外边距的top/bottom都是不可改变的，但 padding 和 margin 的 left 和 right 是可以设置的。
+常见的行内元素有：span、a、br。。。
+
+块级元素的特性：总是独占一行，表现为另起一行开始，即其后的元素也必须另起一行显示，他们的宽度、高度、内边距和外边距都可控制。
+常见的块级元素有：table、form、ul li。。。
+
+行内块元素（inline-block）：即融合了行内元素和块级元素的特性，即在一行显示，又能设置宽高。常见的行内块元素有：img、input、button。。。
+
+这些元素之间是可以通过设置display属性来进行转换的。
+
+[4]-元素居中的方式
+1.margin: 0 auto;
+2.绝对定位 不知道子元素的尺寸
+{position:absolute; top:50%; left:50%; transform:translateX(-50%) translateY(-50%)}
+3.绝对定位，需要知道自身元素的尺寸，假设元素为200px正方形,用margin负值限缩一半的元素尺寸
+{position:absolute; top:50%; left:50%; margin-left:-100px;margin-right:-100px;}
+4.弹性布局
+justify-content:center;
+align-items:center;
+
+
+[5]-圆角控制
+border-radius:50% 这个方法的前提是div必须是正方形
+clip-path:circle(); 可变为圆形
+clip-path:ellipse();圆形
+clip-path:ellipse(25% 50%);椭圆形
+clip-path:polygon(50% 0,100% 100%,0 100%)等腰三角形，ploygon是多边形的意思，括号内的参数代表每一个点的座标，顺序为右上右下左下左上
+clip-path:polygon(50% 0, 50% 100%, 0 0)直角三角形
+
+
+[6]-元素隐藏
+display:none; 原有的元素的位置会丢失，会触发reflow
+visibility:hidden;
+opacity:0;
+position:absolute 然后left给一个负值
+float:left 然后margin给一个负值
+
+[7]-选择器 
+基本选择器-id选择器>类选择器>标签选择器
+结构选择器 div p div里面的所有p
+          div>p  div里面的所有子代p
+          div+p div和与它最近的一个同级p
+          div~p div和他后面的所有同级p
+属性选择器 p[class]所有含class的p / p[attribute=value] 属性attribute为value的所有p
+伪类选择器 :hover :visited
+
+[8]CSS权重问题
+ID-100 / class，类属性-10 / 标签,伪类-1 / * - 0 / 行内样式- 1000 (就是把样式写在标签内部)
+权重可以累计 看大括号之前有几个选择器 含有2个或者以上的，权重可以相加
+强制升级: color:green !important 在某条样式后面加!important
+当子元素没有设定某个属性，父级元素设定了，子元素会继承这个属性，比如color，但是这个继承是没有权重的，也可以说权重比0还小
+但是有些属性不会被继承，比如边框
+关于继承:最好不用通配符* 而是用html{}来选择所有元素
+
+[9] 解决BFC中两个DIVmagin合并的问题
+在上面那个盒子外包裹一个父盒子设置属性voerflow:hidden

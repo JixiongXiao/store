@@ -1,0 +1,82 @@
+react两个数据来源
+state , props
+
+比如有个组件 class App extends React.Component{
+    this.state={
+        name:'xiong'
+    }
+    constructor(props){
+        super(props);
+    }
+    render(){
+        return()
+    }
+}
+
+在某个地方使用 <App a='xiao' b='xiong'/>
+
+当我们console.log(this)
+属性中会有一个 props{ a:'xiao', b='xiong' }
+
+但是现在已经不需要写constructor 和super，默认继承props，就算没有写，一样可以获取props
+要用什么数据直接
+let {name}=this.state;
+let{a,b} = this.props;
+然后就可以直接调用
+
+setState可以触发视图更新，react中render不归我们操作，每一次视图更新都会触发一次render
+大部分情况下setState都是异步更新，也就是说视图更新的时候内部数据实际上还没有更新，在试图更新的时候console出来的数据依然是旧数据
+如果一个函数中触发两次setState，并且修改同一个数据，那么这个数据永远是没有修改之前的，因为修改操作是异步
+
+react的函数组件中，每一次渲染都是一个独立的作用域(函数组件作为一个函数执行一次)，在异步操作中，就算是3秒之后log某个数值，这个数值也是3秒之前那个函数上下文的数值，
+这三秒内就算是数值改变了，log的数值也是3秒之前的
+但是useState只会执行一次，不会每次渲染的时候都重新执行
+let [count setCount]=useState(0);
+setCount 每一次执行都会获取一次最新的count值，可以随便调用setCount((num)=>{})，中间放一个回调函数，就可以刷新视图并且获取最新的值
+而且setCount不需要每次都改变count的值，
+setCount只会顶替原有的值，不是合并。setCount可理解为count指向了一个新的内存空间，不会保留count内部的所有内容，因此count最好是一个原始值而不是对象
+
+ref的用法,此用法可以作用于html标签，也可作用于类组件，不能作用于函数组件
+ com = createRef();
+<h1 ref={this.com} >xiong</h1> 这个时候this.com.current就是这个h1
+方法2： <h1 ref={el=>{this.box=el}} ></h1> 此方法，h1会被赋值给this中的box
+               
+
+useRef的用法
+export default function DayTwo (props){
+    let[count,setCount]= useState(1);
+    let obj = useRef(null);
+    const add=()=>{
+        setCount(count+1);
+    }
+    const log=()=>{
+        console.log(obj)
+    }
+    return(
+        <div>
+            <h1 ref={obj}>{count}</h1>
+            <button onClick={add}>+1</button>
+            <button onClick={log}>log</button>
+        </div>
+    )
+}
+
+受控组件和非受控组件
+input如果value等于{state.value}会随者state的内容发生改变
+但是当input的value属性不等于state，那就是完全脱离react控制，
+
+context用法
+let Context = React.createContext('light');
+
+React.PureComponent的问题：
+React.PureComponent 与 React.Component 很相似。两者的区别在于 React.Component 
+并未实现 shouldComponentUpdate()，而 React.PureComponent 中以浅层对比 prop 和 state 的方式来实现了该函数。
+如果赋予 React 组件相同的 props 和 state，render() 函数会渲染相同的内容，那么在某些情况下使用 React.PureComponent 可提高性能。
+
+注意！
+React.PureComponent 中的 shouldComponentUpdate() 仅作对象的浅层比较。如果对象中包含复杂的数据结构，
+则有可能因为无法检查深层的差别，产生错误的比对结果。仅在你的 props 和 state 较为简单时，才使用 React.PureComponent，
+或者在深层数据结构发生变化时调用 forceUpdate() 来确保组件被正确地更新。你也可以考虑使用 immutable 对象加速嵌套数据的比较。
+
+此外，React.PureComponent 中的 shouldComponentUpdate() 将跳过所有子组件树的 prop 更新。因此，请确保所有子组件也都是“纯”的组件。
+

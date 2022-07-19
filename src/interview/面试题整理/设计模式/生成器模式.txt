@@ -1,0 +1,30 @@
+生成器模式又称构造器模式 Constructor模式
+ES6中用class就可以实现， ES5中需要创建一个构造函数，然后手动修改函数原型对象的构造函数指向，然后把公共方法存放在原型对象内。
+最主要的目的就是自定义类和实例,一般在编写公共的类库，或者写插件组件会用构造器模式
+好处在于，写完时，想要使用的话只要创建一个它的实例就可以，这样可以保证每个实例之间都有自己的私有属性，又可以调用公共方法，
+避免代码冗余。
+这其实就是JS中面向对象的编程思想。
+
+
+
+
+ES6实现构造器的方法
+Class Fn(){
+    constructor(){
+        this.a = a
+    }
+    fn (){}
+    static xxx(){}
+}
+let f1 = new Fn;
+let f2 = new Fn;
+
+ES5实现构造器的方法
+function Fn(){
+    this.a = a
+}
+Fn.prototype ={
+    constructor: Fn,
+    fn(){}
+}
+Fn.xxx = function(){}

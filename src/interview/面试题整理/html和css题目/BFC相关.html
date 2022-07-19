@@ -1,0 +1,14 @@
+https://blog.csdn.net/blueberry_liang/article/details/90030814
+
+内部的Box会在垂直方向，一个接一个的放置
+Box的垂直方向的距离由margin决定，属于同一个BFC的两个相邻的Box会重叠
+BFC的区域不会与float box重叠（定位情况除外）(两个左右浮动div下面的第三个div会平铺整个父元素，如果变成BFC就会形成左中右布局)
+计算BFC的高度时，浮动元素也参与计算（所以BFC可以解决高度塌陷问题）
+BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。
+
+如何形成BFC
+根元素
+float属性不为none
+position为absolute或fixed
+display为inline-block, table-cell, table-caption, flex, inline-flex
+overflow不为visible

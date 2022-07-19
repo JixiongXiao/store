@@ -1,0 +1,130 @@
+数组中的数据查找，cludes和find的差别
+arr.cludes([原始值]) ->返回true或者false
+arr.find([引用类型]) ->返回[引用类型]或者undefined //因为引用类型存储的是内存地址，因此无法用cludes
+arr.findIndex([引用类型]) ->返回索引
+
+数组的排序 
+arr.sort((a,b)=>{
+    return a-b 从小到大
+    return b-a 从大到小
+})
+
+数组的循环
+for 循环
+for (item of arr) 获取每一个下标的值，然后赋值给item
+   ·如果item是原始值类型，那么改变item不会改变原来的数据，因为你实际改变的是item，item是一个新的变量
+   ·如果item是引用类型，那么改变item会改变原来的数组，因为此时是将内存指针指向item，并不是开辟一个新的内存空间
+
+for(key in arr) 获取索引(用来循环对象居多)
+
+
+！forEach和map的差别
+arr.forEach((item,index,arr)=>{}) forEach会对数组的每个元素执行一次给定的函数，返回值为undefined，
+let newArray = arr.map((item,index,arr)=>{}) map会返回一个新数组，里面包含原数组中每一个值调用了提供的函数的返回值，
+map在循环原数组的每一个元素执行回调函数时，会将每次回调函数的返回值组合起来形成一个新数组，而forEach不会生成新数组
+因此如果不打算使用返回的新数组，却使用map是违背设计初衷的，应该使用forEach或者for of代替
+当不打算使用返回的新数组，或者没有从回调函数中返回值，不应该使用map
+
+
+let result = arr.every((item,index,arr)=>{
+    if(XXX) return false
+})
+当有一项return false，result为false,用来判断数组的每一个值是否都达到某些要求
+
+
+let result = arr.some((item,index,arr)=>{
+    if(XXX) return true
+})
+当有一项return true，result为true,用来判断数组是否有值达到某个要求
+
+let newArray = arr.filter((item,index,arr)=>{
+    return (XXX条件)
+})
+filter会返回一个新的数组，其中包含所有通过测试的元素
+
+数组求和
+arr.reduce((total,value,index,array)=>{
+    return total += value //total = arr[0], value = arr=[1],接下来total等于此轮循环的返回值
+})
+当reduce有第二个参数的时候，那第一次循环的时候pre = arg, 然后value=arr[0]
+arr.reduce((pre,value,index,array)=>{
+    return pre += value
+},arg)
+
+arr.concat(arr2) 连接数组
+
+----------------------------数组方法
+数组(array)
+
+
+map: 遍历数组，返回回调返回值组成的新数组
+
+
+forEach: 无法break，可以用try/catch中throw new Error来停止
+
+
+filter: 过滤
+
+
+some: 有一项返回true，则整体为true
+
+
+every: 有一项返回false，则整体为false
+
+
+join: 通过指定连接符生成字符串
+
+
+push / pop: 末尾推入和弹出，改变原数组， push 返回数组长度, pop 返回原数组最后一项；
+
+
+unshift / shift: 头部推入和弹出，改变原数组，unshift 返回数组长度，shift 返回原数组第一项 ；
+
+
+sort(fn) / reverse: 排序与反转，改变原数组
+
+
+concat: 连接数组，不影响原数组， 浅拷贝
+
+
+slice(start, end): 返回截断后的新数组，不改变原数组
+
+
+splice(start, number, value...): 返回删除元素组成的数组，value 为插入项，改变原数组
+
+
+indexOf / lastIndexOf(value, fromIndex): 查找数组项，返回对应的下标
+
+
+reduce / reduceRight(fn(prev, cur)， defaultPrev): 两两执行，prev 为上次化简函数的return值，cur 为当前值
+
+//fill方法
+//arry.fill(value,start,end)
+let arry = ["xiong","shawn","xiao"];
+arr.fill('web',1,3);
+console.log(arr) ;
+//结果为 ["xionog","web","web"]
+
+//for of 循环
+//实例方法entries()可以获取数组值和索引
+for(let [index,value] of arr.entries()){
+    console.log(index+':'+value)
+}
+//实例方法 keys()可以输出索引
+for (let index of arr.keys()){
+    console.log(index);
+}
+//输出值
+for (let item of arr){
+    console.log(item)
+}
+//手动循环
+let list = arr.entries();
+console.log(list.next().value);
+console.log(list.next().value);
+console.log(list.next().value);
+//结果为
+//[0, "xiong"]
+//[1, "shawn"]
+//[2, "xiao"]
+

@@ -1,0 +1,29 @@
+浮动会导致高度塌陷，清除浮动也就是解决高度塌陷问题
+原则
+普通元素会占用空间位，但是浮动之后，空间位就消失了，高度变成了0，父级也感知不到存在
+
+行内元素加上浮动属性之后，会自动转换成inline-block 行内块级元素
+
+清除浮动的几种方法
+方法1 添加一个类，然后在要清除内部浮动的那个div加上这个类
+    .clearfix{
+            zoom:1;
+        }
+        .clearfix::after{
+            content:'';
+            display:block;
+            height:0;
+            clear:both;
+        }
+
+方法2 在要清除浮动的那个div的样式里加上overflow属性，因为有overflow属性之后，div对于高度的判断就会根据内部的元素大小，包括浮动元素
+overflow:auto;
+
+
+ 父级 div 定义 height
+ 结尾处加空 div 标签 clear:both
+ 父级 div 定义伪类 :after 和 zoom
+ 父级 div 定义 overflow:hidden
+ 父级 div 也浮动，需要定义宽度
+ 结尾处加 br 标签 clear:both
+ 比较好的是第 3 种方式，好多网站都这么用

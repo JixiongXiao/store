@@ -1,0 +1,27 @@
+声明弹性盒子的几种方式
+display:flex;
+
+flex和flex-grow的差别
+比如一行有3个元素
+元素为flex:1/2/3；表示一整行的空间分为6分，分别各占1，2，3份
+如果元素属性flex-grow：1/2/3/; 则是在保证每个元素都容纳下后，剩余的空间分成6份
+flex-grow控制填充比例 flex-shrink控制缩小比例，给的数值越大，缩小比例越大
+
+如果body没有高度宽度的话
+内部的元素没有办法使用空间分配，所以body可以先设置百分百高度宽度，特别是移动端开发地时候
+
+主轴的基准尺寸定义，
+flex-basis [优先级大于内部元素的尺寸]
+内部元素的尺寸优先级:max/min-width > flex-basis > width
+
+flex-grow:1;
+flex-shrink:2;
+flex-basis:100px;
+缩写：flex:1 2 100px
+
+控制元素的排序 给每个子元素order属性
+order越大越往后排
+
+定位元素在弹性布局中
+如果是absolute绝对定位，会丢失空间，因此位置会被其他弹性元素占据
+如果是relative相对定位，会保留空间

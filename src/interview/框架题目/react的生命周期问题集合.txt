@@ -1,0 +1,65 @@
+React的生命周期分为两种，第一种是页面第一次载入，成为mounting, 第二次是页面重新触发渲染，成为updating
+mouting: 先触发constructor() -> 触发render() -> React updates DOM and ref -> 触发componentDidMount()
+updating: 触发render()，这个过程中传入新的state, props， 然后触发 forceUpdate() -> React updates DOM and ref -> 触发 componentDidUpdate()
+
+更具体地调用顺序如下：
+当组件实例被创建并插入 DOM 中时，其生命周期调用顺序如下：
+
+constructor()
+static getDerivedStateFromProps()
+render()
+componentDidMount()
+
+当组件的 props 或 state 发生变化时会触发更新。组件更新的生命周期调用顺序如下：
+static getDerivedStateFromProps()
+shouldComponentUpdate()
+render()
+getSnapshotBeforeUpdate()
+componentDidUpdate()
+
+
+钩子函数
+1.shouldComponentUpadte(newProps){
+    if (this.props.name === newProps.name) return false
+
+} 文档中写此方法仅用于性能优化，而不是阻止渲染
+
+此方法可以让组件判断是否触发render，适用于子组件，
+每一次父组件重新渲染时，都会把参数重新传递一次给子组件，子组件可以判断新的props，如果参数没有变化
+return false，则该子组件就不会触发render，优化性能
+
+阻止render执行可以用 PureComponent 此组件会浅层对比props和state，
+class Child extends.React.PureComponent{}
+此方法可以理解为内置了一个 shouldComponentUpdate，只要props和state没更新就不会触发render，
+但是此方法就是将控制权交给react，所以用得比较少
+
+想要达到类似效果还可以使用高阶组件React.memo
+使用方法为，export default React.memo(MyComponent); 用React.memo包裹组件。
+或者 const MyComponent = React.memo(MyComponent);
+但是memo方法仅检查props，如果组件中有useState或者useComtext并且触发，依然会重新渲染，具体用法看文档https://zh-hans.reactjs.org/docs/react-api.html#reactmemo
+！注意，使用memo如果props传入的是一个引用数据类型，那么每次都会重新渲染，因为每次传入一个引用数据类型实际上是传入了一个新的内存指针
+函数组件中的usememo使用方法有所不同，只要用来做一些引用类型数据的缓存，相对的useCallback用来做函数的缓存
+优化性高阶组件
+
+2.componentWillUnmount() 会在组件卸载及销毁之前直接调用。在此方法中执行必要的清理操作，
+例如，清除 timer，取消网络请求或清除在 componentDidMount() 中创建的订阅等。
+
+componentWillUnmount() 中不应调用 setState()，因为该组件将永远不会重新渲染。组件实例卸载后，将永远不会再挂载它。
+
+3.forceUpdate()
+默认情况下，当组件的 state 或 props 发生变化时，组件将重新渲染。
+如果 render() 方法依赖于其他数据，则可以调用 forceUpdate() 强制让组件重新渲染。
+
+调用 forceUpdate() 将致使组件调用 render() 方法，此操作会跳过该组件的 shouldComponentUpdate()。
+但其子组件会触发正常的生命周期方法，包括 shouldComponentUpdate() 方法。如果标记发生变化，React 仍将只更新 DOM。
+
+通常你应该避免使用 forceUpdate()，尽量在 render() 中使用 this.props 和 this.state。
+
+4.useEffect()
+在函数组件种，useEffect(callback) 
+可以看作是 componentDidMount, componentwillunmount, componentDidUpdate的组合
+里面的回调函数会在DOM加载或者更新完之后触发
+如果我们只需要在DidMout之后触发，而不是每一次update都触发，只需要useEffect(callback,[])，加入一个空数组即可
+如果要加上依赖判断，可以useEffect(callback,[依赖])，数组中可以放很多参数，当参数改变，才触发callback
+callback的return可以是一个函数，返回的这个函数会在callback之前执行，
+当函数触发unmout卸载的时候也会触发这个return，useEffect就看作是componentWillUnmount。

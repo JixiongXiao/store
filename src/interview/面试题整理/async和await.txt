@@ -1,0 +1,13 @@
+async + await 是ES7中generator + promise的语法糖
+用同步的方式编写异步代码
+
+
+async：函数修饰符，控制函数返回promise实例， 可以理解为 new promise
+  ·函数内部报错的话，则返回rejected状态的promise实例，返回值为失败原因
+  ·如果自己返回了一个promise，则以自己返回的为主
+  ·如果函数内部用catch捕获了异常，则还是成功态
+
+await 后面应该放置一个promise实例，就算我们书写的不是，浏览器也会把其变成一个promise，并且中断函数中这行代码以下的所有代码执行
+ ·await 表达式会暂停整个async函数的执行进程并且出让其控制权
+ ·await 1 = await Promise.resolve(1);
+ ·await下面的代码会被当作一个任务，放置在任务队列的微任务队中

@@ -1,0 +1,32 @@
+浅克隆
+对象
+1.let clone = Object.assign({},obj);
+2.let clone = {
+    ...obj
+};
+数组
+1.[].slice.call(arguments)
+2.展开运算符
+
+//========实现深克隆最便捷办法
+// JSON.stringify:把对象/数组变为JSON字符串
+// JSON.parse:把JSON字符串变为对象/数组「浏览器需要重新开辟所有内存」
+// 【弊端】
+//   + 不允许出现套娃操作
+//   + 属性值不能是BigInt  Uncaught TypeError: Do not know how to serialize a BigInt
+//   + 丢失一些内容：只要属性值是 symbol/undefined/function 这些类型的
+//   + 还有信息不准确的，例如：正则->空对象  Error对象->空对象  日期对象->字符串  ...
+// let newObj = JSON.parse(JSON.stringify(obj));
+
+// Qs.stringify:把对象变为urlencoded格式字符串 “xxx=xxx&xxx=xxx”
+// Qs.parse:把urlencoded格式字符串变为对象
+// 【也存在很多问题】
+// console.log(Qs.parse(Qs.stringify(obj)));
+
+
+浅拷贝的特点
+浅拷贝可以说是浅层拷贝，如果拷贝的是一个对象，那浅拷贝就只是拷贝了对象的第一层，
+假设a是一个对象，a里面有个值a1也是一个对象，
+那么当b用浅拷贝的方法虽然开辟了一个新的内存空间，但是实际上b.a1和a.a1是指向同一个对内存的
+
+深拷贝就是对a的每一个层级都进行拷贝，直到最后一层。

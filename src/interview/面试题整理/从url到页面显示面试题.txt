@@ -1,0 +1,142 @@
+输入URL到看到页面中间经历了什么
+
+1 URL解析【识别URL】
+2 检查缓存 【强缓存，协商缓存，本地存储
+3 DNS服务器解析 【域名解析：根据域名解析出服务器的外网IP】 没有缓存，需要往服务器发送请求，首先就是要找到服务器的位置就是DNS解析
+4 TCP的三次握手 【建立客户端和服务器之间的网络通道】
+5 基于HTTP/HTTPS 等传输协议，实现客户端和服务器之间的信息通信
+6 TCP的四次挥手 【把建立好的网络通道释放掉】
+7 客户端渲染 【呈现出页面效果】
+------------------------------------
+！！！！信息传递基础：
+ 客户端和服务器之间的信息通信 
+     + XMLHttpRequest「ajax|axios|$.ajax...|」/fetch数据交互
+     + 跨域处理方案：ajax、fetch、jsonp、postMessage...
+     + 资源获取「html|css|js|image|音视频...」
+     + webscoket
+     + ...
+
+   客户端把信息传递给服务器或者向服务器发送请求「请求 Request」
+   服务器端接收客户端信息并且返回给客户端相关的内容「响应 Response」
+     请求+响应=HTTP事物
+     客户端和服务器端之间传输的所有内容，统称为HTTP报文
+        起始行：基本信息「包含HTTP的版本等」
+            请求起始行  GET{请求方式} /res-min/themes/marxico.css{请求地址} HTTP/1.1{HTTP版本号}
+            响应起始行  HTTP/1.1{HTTP版本号} 200{HTTP响应状态码} OK{状态码描述}
+        首部（头）：请求头「客户端->服务器」、响应头「服务器->客户端」
+        主体：请求主体「客户端->服务器」、响应主体「服务器->客户端」
+
+   谷歌浏览器控制台 NetWork包含了所有客户端和服务器之间的通信信息
+
+   HTTP版本号：1.0 / 1.1 / 2.0
+   HTTP响应状态码：200 / 301 / 302 / 304 / 307 / 400 / 401 / 404 / 500 / 503 ...
+   请求方式：GET{GET/HEAD/DELETE/OPTIONS}  POST{POST/PUT/PATCH}
+   请求地址：URL地址，可能在地址后面有问号参数   /api/list?xxx=xxx&xxx=xxx「问号参数：客户端->服务器」
+
+    ！！！！1.URL解析「识别URL」
+
+    URI统一资源标识符  
+       URL:统一资源定位符
+       URN:统一资源名称
+
+    http://user:pass@www.zhufengpeixun.cn:80/st/index.html?xxx=xxx&xxx=xxx#video
+       传输协议：http / https / ftp ...
+          + HTTP超文本传输协议{除了传输文本「例如：字符串...」还可以传输其余的信息「例如：文件流、二进制或者Buffer格式再或者BASE64格式的数据...」}
+          + HTTPS=HTTP+SSL 更加安全的HTTP{传输的内容经过加密处理}，一般涉及支付类的产品都采用这种协议
+          + FTP文件传输协议，一般用于直接基于一些FTP工具「例如：filezilla...」，把开发的文件部署到服务器上
+          + ...
+
+       用户名密码：user:pass「一般是不用的」
+
+       域名：www.zhufengpeixun.cn
+          + 顶级域名 zhufengpeixun.cn
+          + 一级域名 www.zhufengpeixun.cn
+          + 二级域名 video.zhufengpeixun.cn
+          + 三级域名 student.video.zhufengpeixun.cn
+          + ...
+          购买的是顶级域名，自己后期可以分配二级/三级域名
+          域名的目的就是给对应的服务器外网IP起一个别名，方便用户记忆
+        域名和服务器都购买完成后，需要在DNS服务器上生成一条解析记录，用于以后的DNS解析
+        .com / .cn / .net / .org / .gov / ...
+
+        协议、域名、端口号只要有一个不同，则为跨域！！
+          www.baidu.com VS www.qq.com ：跨域
+          www.baidu.com VS video.baidu.com ：跨域「主域相同，但是子域不同」
+          www.baidu.com:80 VS www.baidu.com:443：跨域
+          http://www.baidu.com VS https://www.baidu.com：跨域
+          http://www.baidu.com:80/st.html VS http://www.baidu.com:80/index.html：同源
+
+       端口号：80
+          端口就是用来区分一台服务器上的多个项目的「每一个项目其实都是一个服务」
+            取值范围 0~65535之间
+            默认端口号:在浏览器地址栏中输入地址，我们不写端口号，浏览器会帮助我们加上，传递给服务器的时候是带着端口号的 http->80  https->443  ftp->21 
+
+       请求资源的路径名称：/st/index.html
+           基于路径找到客户端需要的资源文件
+           看到的URL地址可能是重写后的「看到的地址在文件目录中不存在」
+              + ajax数据请求的接口地址  /api/list
+              + url重写  https://item.jd.com/10024624707120.html{静态地址：利于SEO优化}  原本地址：https://item.jd.com/detail.jsp?id=10024624707120 {动态地址：不利于SEO优化}
+              + http://www.xxx.com/info/10024624707120 路径参数「导航」
+                http://www.xxx.com/info?id=10024624707120
+
+       问号参数信息：?xxx=xxx&xxx=xxx
+           把信息传递给服务器 GET系列请求一般都是这样传递参数 
+              xxx=xxx&xxx=xxx -> x-www-form-urlencoded格式
+           如果是页面跳转，把信息传递给另外一个页面
+
+       HASH(哈希)值：#video
+           锚点定位
+           HASH路由
+           ...
+
+    URL编译问题
+        encodeURI & decodeURI：编译空格和中文，一般编译整个URL中的信息
+        encodeURIComponent & decodeURIComponent：编译空格和中文以及一些特殊符号，所以一般只是用来编译传递的信息值的，而不是整个URL「放置URL解析不了或者传递信息的乱码等问题」
+        ----前后端都支持的API
+
+        escape & unescape
+        ----用于客户端页面信息传递或者一些信息的编译的「例如：cookie中的中文内容编译」
+
+！！！！！------------------------------------------
+缓存的需求~~~！！！！
+没有缓存数据，我们从服务器拉取最新数据；有缓存数据，我们直接读取缓存数据[减少和服务器之间的交互频率，降低服务器压力，提高渲染速度]
+
+项目需要数据缓存的三种情况
+--》页面不刷新，我们某些内容频繁操作，但是数据不是需要实时获取最新的，可以做一下缓存，只要页面刷新，重新从服务器获取[用全局变量来做]
+
+--》页面只要不关闭，我们读取缓存数据[针对不常更新的数据]；[用sessionStorage来做]
+
+--》页面即使关闭，重新打开，我们也可以读取缓存数据[数据更新频率更低][localStorage来做]
+
+客户端存储数据的方案
+ ·全局变量存储 [vuex/redux] --页面刷新或者关闭之后重新打开，之前存储的数据就清除[内存释放问题导致]
+
+ ·Cookie
+
+ ·webStorage : localStorage 
+               sessionStorage
+
+ ·IndexDB
+
+ ·Cache
+
+ ·Manifest S5的离线存储[存储量少，很少采用]
+
+ localStorage 和 sessionStorage 的区别
+ ·两者都是H5新增的API
+ ·localStorage称为持久化本地存储，没有过期时间，页面关闭存储还是存在，只有手动清除才可以
+ ·sessionStorage称为会话存储，页面关闭后，存储的信息会消失，但是页面刷新不消失
+
+ localStorage 和 cookie 的区别
+ ·本地存储的数据都是有同源访问限制的，只允许读取本源下存储的内容
+ ·cookie只允许一个源下最多存储4kb的内容
+ ·localStorage可以存储同源下5MB的内容[sessionStorage相同]
+
+ ·cookie是需要设置过期时间的，超过时间自己被清除
+ ·localStorage可以长期存储，没有过期时间
+
+ .cookie不稳定，基于安全卫士或者浏览器自带的清除操作，会清除cookie，开启无痕模式或者隐私模式，则不能存储cookie
+ ·localStorage不会被影响
+
+ ·cookie不算严格的本地存储 [客户端向服务器发请求的时候，会默认把本地的cookie信息基于请求头发送给服务端，
+                             服务器返回的响应头中有set-cookie字段，浏览器也会把信息在客户端本地种上cookie]

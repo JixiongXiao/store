@@ -1,0 +1,32 @@
+笔记：观察者模式和发布订阅模式很相似， 
+观察者模式的基本概念是，我们可以创建很多的观察者，每一个观察者内部都有一个update的方法，update可以接受数据
+我们需要创建一个 目标，用来管理观察者。目标的内部有一个数据结构，比如数组，用来储存观察者，
+然后目标可以添加，删除观察者，还可以通知观察者去执行它的的update方法
+
+class Observer {
+    update(msg){
+
+    }
+}
+
+class Subject{
+    ObserverList = [];
+    add(observer){
+        ObserverList.push(observer);
+    }
+    remove(observer){
+        ObserverList.filter(item=>{
+            return item !== observer
+        })
+    }
+    notify(...params){
+        ObserverList.forEach(observer=>{
+            if(observer && observer.update){
+                observer.update(...pramas)
+            }
+        });
+    }
+}
+
+当我们的项目有很多功能需要执行的时候，就可以用观察者模式来管理这些功能。当然观察者可以有很多个，目标也可以有很多个
+不同的目标可以代表不同的需求，去按业务的需求通知不同的观察者执行业务。
