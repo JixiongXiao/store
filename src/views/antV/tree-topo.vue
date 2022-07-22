@@ -15,8 +15,8 @@ export default {
     }
   },
   mounted() {
-    // this.drawGraph()
-    this.initDemo()
+    this.drawGraph()
+    // this.initDemo()
   },
   methods: {
     drawGraph() {
@@ -26,8 +26,9 @@ export default {
             id: 'node1',
             x: 350,
             y: 200,
+            size: 48,
             comboId: 'combo1',
-            type: 'assetNode'
+            type: 'customNode'
           },
           {
             id: 'node2',
@@ -37,7 +38,7 @@ export default {
             type: 'assetNode'
           },
           { id: 'node3', x: 500, y: 200, comboId: 'combo3', type: 'assetNode' },
-          { id: 'node4', type: 'assetNode' }
+          { id: 'node4', size: 48, x: 700, y: 200, type: 'customNode' }
         ],
         edges: [
           { source: 'node1', target: 'node2' },

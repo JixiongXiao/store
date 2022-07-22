@@ -723,31 +723,178 @@ G6.registerEdge(
   'line'
 )
 G6.registerNode(
-  'assetNode',
+  'customNode',
   {
     options: {
-      style: {},
+      style: {
+        fill: '#steelblue',
+        lineWidth: 5
+      },
       stateStyles: {
         hover: {},
         selected: {}
       }
     },
     draw(cfg, group) {
+      const location = 22 * Math.sin(Math.PI / 3)
       const keyShape = group.addShape('polygon', {
         attrs: {
           points: [
-            [6, 0],
-            [16, 0],
-            [22, 8],
-            [16, 16],
-            [6, 16],
-            [0, 8]
+            [-11, location],
+            [11, location],
+            [22, 0],
+            [11, -location],
+            [-11, -location],
+            [-22, 0]
           ],
-          stroke: 'black'
+          stroke: 'white',
+          lineWidth: 2,
+          fill: '#F25C61',
+          shadowColor: '#F25C61',
+          shadowOffsetX: 0,
+          shadowOffsetY: 0,
+          shadowBlur: 5
         },
         name: 'polygon-hexagon'
       })
       return keyShape
+    },
+    afterDraw(cfg, group) {
+      const r = cfg.size / 2
+      const location = 22 * Math.sin(Math.PI / 3)
+      // const back1 = group.addShape('polygon', {
+      //   zIndex: -3,
+      //   attrs: {
+      //     x: 0,
+      //     y: 0,
+      //     r,
+      //     points: [
+      //       [-11, location],
+      //       [11, location],
+      //       [22, 0],
+      //       [11, -location],
+      //       [-11, -location],
+      //       [-22, 0]
+      //     ],
+      //     fill: '#F25C61',
+      //     opacity: 0.6
+      //   },
+      //   name: 'back1-shape'
+      // })
+      // const back2 = group.addShape('polygon', {
+      //   zIndex: -2,
+      //   attrs: {
+      //     x: 0,
+      //     y: 0,
+      //     r,
+      //     points: [
+      //       [-11, location],
+      //       [11, location],
+      //       [22, 0],
+      //       [11, -location],
+      //       [-11, -location],
+      //       [-22, 0]
+      //     ],
+      //     fill: '#F25C61',
+      //     opacity: 0.6
+      //   },
+      //   name: 'back1-shape'
+      // })
+      // const back3 = group.addShape('polygon', {
+      //   zIndex: -1,
+      //   attrs: {
+      //     x: 0,
+      //     y: 0,
+      //     r,
+      //     points: [
+      //       [-11, location],
+      //       [11, location],
+      //       [22, 0],
+      //       [11, -location],
+      //       [-11, -location],
+      //       [-22, 0]
+      //     ],
+      //     fill: '#F25C61',
+      //     opacity: 0.6
+      //   },
+      //   name: 'back1-shape'
+      // })
+
+      const back1 = group.addShape('circle', {
+        zIndex: -3,
+        attrs: {
+          x: 0,
+          y: 0,
+          r,
+          fill: '#F25C61',
+          opacity: 0.2
+        },
+        name: 'back1-shape'
+      })
+      const back2 = group.addShape('circle', {
+        zIndex: -2,
+        attrs: {
+          x: 0,
+          y: 0,
+          r,
+          fill: '#F25C61',
+          // 为了显示清晰，随意设置了颜色
+          opacity: 0.2
+        },
+        name: 'back2-shape'
+      })
+      const back3 = group.addShape('circle', {
+        zIndex: -1,
+        attrs: {
+          x: 0,
+          y: 0,
+          r,
+          fill: '#F25C61',
+          opacity: 0.2
+        },
+        name: 'back3-shape'
+      })
+      group.sort() // 排序，根据zIndex 排序
+      const delayBase = Math.random() * 2000
+      back1.animate(
+        {
+          // 逐渐放大，并消失
+          r: r + 10,
+          opacity: 0.0
+        },
+        {
+          repeat: true, // 循环
+          duration: 3000,
+          easing: 'easeCubic',
+          delay: delayBase // 无延迟
+        }
+      )
+      back2.animate(
+        {
+          // 逐渐放大，并消失
+          r: r + 10,
+          opacity: 0.0
+        },
+        {
+          repeat: true, // 循环
+          duration: 3000,
+          easing: 'easeCubic',
+          delay: delayBase + 1000 // 1 秒延迟
+        }
+      )
+      back3.animate(
+        {
+          // 逐渐放大，并消失
+          r: r + 10,
+          opacity: 0.0
+        },
+        {
+          repeat: true, // 循环
+          duration: 3000,
+          easing: 'easeCubic',
+          delay: delayBase + 2000 // 2 秒延迟
+        }
+      )
     }
   },
   'circle'

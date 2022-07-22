@@ -47,7 +47,7 @@ export default {
       },
       comboCombined: {
         type: 'comboCombined',
-        outerLayout: new G6.Layout['gForce']({
+        outerLayout: new G6.Layout['random']({
           gravity: 1,
           factor: 2
           // linkDistance: (edge, source, target) => {
@@ -102,7 +102,8 @@ export default {
         const node = {
           id: i + 1 + 'node',
           label: i + 1,
-          level: ''
+          level: '',
+          type: 'level3-blue'
         }
         if (i < 20) {
           node.level = 3
@@ -366,7 +367,7 @@ export default {
           easing: 'linearEasing' // String，动画函数
         },
         groupByTypes: false,
-        layout: this.comboCombined,
+        layout: this.comboForce,
         defaultNode: {
           size: 20
         },
