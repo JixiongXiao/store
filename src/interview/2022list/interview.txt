@@ -1,0 +1,18 @@
+箭头函数和普通函数区别
+
+箭头函数不会创建自己的this,所以它没有自己的this,它只会在自己作用域的上一层继承this。
+所以箭头函数中的this的指向在它在定义时一家确定了，之后不会改变。
+call()、apply()、bind()等方法不能改变箭头函数中的this指向。
+箭头函数不能作为构造函数使用。没有自己的arguments，没有prototype
+
+map和set的区别 https://juejin.cn/post/7064479924757168165
+map的数据结构是键值对，key可以是字符串也可以是个对象
+用法 map.set(key,value), map.has(key)/true-false, map.delete(key), map.delete(key), map.get(key)
+set类似数组，且内部的值都是唯一的 const arr2 = [...new Set(arr)]是最快的去重方法
+用法 set.add(value), set.delete(value), set.has(value)
+map和set都不允许key重复，set的value就是key，value是唯一的
+map是二维数组，set是一维数组
+
+forEach和map的区别
+forEach方法没有返回值，map会返回一个处理后的值的数组
+如果是只是为了遍历原数组，应该使用foreach，如果是为了处理原数组，应该用map

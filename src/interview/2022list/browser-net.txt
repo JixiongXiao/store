@@ -1,0 +1,31 @@
+localStorage  sessionStorage  cookies 有什么区别? https://juejin.cn/post/6844903516826255373
+cookie：可设置失效时间，没有设置的话，默认是关闭浏览器后失效,可存放4kb左右信息
+localStorage：除非被手动清除，否则将会永久保存。可存放5MB
+sessionStorage： 仅在当前网页会话下有效，关闭页面或浏览器后就会被清除。可存放5MB
+cookie：每次都会携带在HTTP头中，如果使用cookie保存过多数据会带来性能问题
+localStorage和sessionStorage：仅在客户端（即浏览器）中保存，不参与和服务器的通信
+
+web同源跨域，xss跨站脚本攻击，sql注入，csrf攻击 https://juejin.cn/post/7096701608456617997
+
+同源和跨域CORS，CSP
+如果两个url的协议，域名和端口相同，那么这两个url同源，
+同源的url可以互相操作dom，互相读取cookie，localstorage，同源策略限制了不同源站点之间的http网络请求
+通过跨域资源共享CORS机制解决这个问题，并且引入CSP机制来限制其自由，防止xss攻击
+浏览器请求第三方资源后，所以为了安全，浏览器中引入了内容安全策略，称为 CSP。
+CSP全称 content-sercurity-policy，在http响应头，告诉浏览器哪些js和图片资源可以加载，有什么规则
+
+xss跨站脚本攻击 （注入恶意脚本）
+支持页面引用第三方资源会带来安全问题，xss最典型，xss就是指在用户浏览器内运行非法html标签和javascript
+恶意脚本可以 窃取cookie，通过js监听用户行为，修改页面的dom，制造弹窗广告，假登录框
+前端如何预防xss？
+xss本质是向浏览器注入恶意脚本，所以前端获取数据时可以充分利用CSP，限制加载不信任的源的资源
+
+csrf跨站请求伪造
+
+SQL注入
+sql注入的条件，客户端可以控制输入的数据，比如表单; 服务器要执行的代码拼接了被控制的数据
+前端如何预防sql注入？
+从权限系统上去限制用户操作数据库的权限
+检查用户输入的数据是否符合预期。也就是表单校验
+对特殊字符进行处理或者限制输入
+

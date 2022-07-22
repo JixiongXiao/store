@@ -1,0 +1,14 @@
+v-model和.sync的差别 / 双向数据绑定的原理 https://juejin.cn/post/7020248745002401805#heading-0
+
+v-model的本质是父组件引用子组件时往子组件的'value'中传递参数，并且监听input事件
+<Child :value="num" @input='val=>num=val'>
+子组件内部的props必须声明一个变量，名为value，并且emit一个input事件，value作为参数
+this.$emit('input',this.value)
+.sync的本质是emit和v-on的缩写
+父组件使用调用子组件时传值可以加上.sync修饰符
+<Child :a.sync="num" .b.sync="num2"></Child>
+子组件接收参数时不再像v-model一样声明value,而是直接在props声明相应的变量名a和b
+但是子组件在数据发生改变时必须emit一个事件'update:变量名'的事件，并且把该值作为参数
+父组件有.sync修饰符时会自动监听这个update事件
+this.$emit('update:a',this.a)
+this.$emit('update:b',this.b)
