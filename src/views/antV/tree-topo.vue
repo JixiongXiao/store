@@ -28,7 +28,7 @@ export default {
             y: 200,
             size: 48,
             comboId: 'combo1',
-            type: 'customNode'
+            type: 'hexagonNode'
           },
           {
             id: 'node2',
@@ -38,7 +38,7 @@ export default {
             type: 'assetNode'
           },
           { id: 'node3', x: 500, y: 200, comboId: 'combo3', type: 'assetNode' },
-          { id: 'node4', size: 48, x: 700, y: 200, type: 'customNode' }
+          { id: 'node4', size: 48, x: 700, y: 200, type: 'hexagonNode' }
         ],
         edges: [
           { source: 'node1', target: 'node2' },
