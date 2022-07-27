@@ -35,8 +35,8 @@ cache-control使用mag-age作为相对时间来判断缓存是否过期，单位
 如果服务器数据没更新，返回304，继续从缓存中获取数据，如果服务器数据更新了，返回200，重新获取请求。
 
 协商缓存的标识
-last-modified/last-modified-since
-etag/if-none-match 优先级最高，两个同时存在时etag组合生效
+last-modified/last-modified-since 保存的时一个时间戳
+etag/if-none-match 保存的是哈希值 优先级最高，两个同时存在时etag组合生效
 
 *返回200和返回304的区别？
 当发生强缓存的时候，客户端从缓存获取数据，此时会返回200状态码
