@@ -1,0 +1,36 @@
+防抖 debounce
+防抖就是防止某些被高频触发的事件高频次地执行
+在设定的时间范围内，让事件只在第一次触发时执行或者在多次触发时只在最后一次触发时执行
+
+*只执行最后一次触发
+ 多次触发时每一次timer都会被注销然后重新注册，业务代码就不会执行
+let timer = null
+function () {
+    clearTimeout(timer)
+    timer = setTimeout(()=>{
+        业务代码
+    },delay)
+}
+
+*首次触发后面都不执行
+ 首次触发后执行了业务代码，timer注册成时钟，delay时间不到时timer无法变成null，业务不会被再次触发
+let timer = null
+function () {
+    clearTimeout(timer)
+    let exect = !timer 当null为空时exect为true则执行
+    if(exect) { 业务代码 }
+    timer = setTimeout(()=>{
+        timer = null // 时间到后timer才会变成null，只有timer为null时才能执行
+    },delay)
+}
+
+节流 throttle
+节流就是让某个时间只在某个时间段内执行1次，之后该时间段内触发都不执行
+let lasttime = 0
+function () {
+    let time = Date.now() // 获取当前时间戳
+    if (time - lasttime > delay) {
+        业务代码
+        lasttime = time
+    }
+}
