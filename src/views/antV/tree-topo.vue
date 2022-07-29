@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div id="graph-container" />
-    <div id="g6-demo" />
+    <!-- <div id="g6-demo" /> -->
   </div>
 </template>
 
@@ -20,42 +20,24 @@ export default {
   },
   methods: {
     drawGraph() {
-      const data = {
-        nodes: [
-          {
-            id: 'node1',
-            x: 350,
-            y: 200,
-            size: 48,
-            comboId: 'combo1',
-            type: 'hexagonNode'
-          },
-          {
-            id: 'node2',
-            x: 350,
-            y: 250,
-            comboId: 'combo1',
-            type: 'assetNode'
-          },
-          { id: 'node3', x: 500, y: 200, comboId: 'combo3', type: 'assetNode' },
-          { id: 'node4', size: 48, x: 700, y: 200, type: 'hexagonNode' }
-        ],
-        edges: [
-          { source: 'node1', target: 'node2' },
-          { source: 'node1', target: 'node3' },
-          { source: 'combo1', target: 'node3' }
-        ],
-        combos: [
-          { id: 'combo1', label: 'Combo 1', parentId: 'combo2' },
-          { id: 'combo2', label: 'Combo 2' },
-          { id: 'combo3', label: 'Combo 3' }
-        ]
+      const nodes = []
+      for (let i = 0; i <100; i++) {
+        const node = {
+          id:`node${i}`,
+          size:48,
+          type: 'hexagonNode', 
+          animate:false
+        }
+        nodes.push(node)
       }
-      const descriptionDiv = document.createElement('div')
-      descriptionDiv.innerHTML =
-        'Double click the combo to collapse/expand it. Drag the node or combo to change the hierarchy.'
+      const data = {
+        nodes: nodes
+      }
+      // const descriptionDiv = document.createElement('div')
+      // descriptionDiv.innerHTML =
+      //   'Double click the combo to collapse/expand it. Drag the node or combo to change the hierarchy.'
       const container = document.getElementById('graph-container')
-      container.appendChild(descriptionDiv)
+      // container.appendChild(descriptionDiv)
 
       const width = container.scrollWidth
       const height = (container.scrollHeight || 500) - 20
@@ -64,8 +46,12 @@ export default {
         container: 'graph-container',
         width,
         height,
-        // Set groupByTypes to false to get rendering result with reasonable visual zIndex for combos
         groupByTypes: false,
+        layout: {
+        type: 'beehive-layout',
+        gap:20,
+        startPoint:[200,200]
+        },
         defaultCombo: {
           type: 'circle',
           size: [40, 10], // The minimum size of the Combo
@@ -88,6 +74,7 @@ export default {
         modes: {
           default: [
             'drag-canvas',
+            'zoom-canvas',
             'drag-node',
             'drag-combo',
             'collapse-expand-combo',
@@ -492,14 +479,14 @@ export default {
   width: 100%;
   height: 100%;
 }
-// #graph-container {
-//   border: 1px dotted gray;
-//   width: 100%;
-//   height: calc(100% - 100px);
-// }
-#g6-demo {
+#graph-container {
   border: 1px dotted gray;
   width: 100%;
   height: calc(100% - 100px);
 }
+// #g6-demo {
+//   border: 1px dotted gray;
+//   width: 100%;
+//   height: calc(100% - 100px);
+// }
 </style>
