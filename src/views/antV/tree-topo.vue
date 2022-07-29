@@ -21,7 +21,7 @@ export default {
   methods: {
     drawGraph() {
       const nodes = []
-      for (let i = 0; i <100; i++) {
+      for (let i = 0; i <18; i++) {
         const node = {
           id:`node${i}`,
           size:48,
@@ -49,8 +49,8 @@ export default {
         groupByTypes: false,
         layout: {
         type: 'beehive-layout',
-        gap:20,
-        startPoint:[200,200]
+        gap:1,
+        startPoint:[24,24]
         },
         defaultCombo: {
           type: 'circle',

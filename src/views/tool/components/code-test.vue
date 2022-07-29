@@ -51,7 +51,7 @@ export default {
   border: 1px solid red;
   width: 10em;
   .son-box {
-    font-size: 20px;
+    // font-size: 20px;
     border: 1px solid green;
     width: 10em;
   }

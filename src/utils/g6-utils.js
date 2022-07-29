@@ -754,12 +754,12 @@ G6.registerNode(
             [-halfSize, 0]
           ],
           stroke: 'white',
-          lineWidth: 2,
+          // lineWidth: 2,
           fill: '#F25C61',
-          shadowColor: '#F25C61',
-          shadowOffsetX: 0,
-          shadowOffsetY: 0,
-          shadowBlur: 5
+          // shadowColor: '#F25C61',
+          // shadowOffsetX: 0,
+          // shadowOffsetY: 0,
+          // shadowBlur: 5
         },
         name: 'polygon-hexagon'
       })
@@ -958,7 +958,7 @@ G6.registerLayout('beehive-layout',{
       const groupL2 = opposite(x, y + 2 * offset)
       const groupR1 = normal(x + 3 * r, y)
       const groupR2 = opposite(x + 3 * r, y + 2 * offset)
-      locations = [...locations,...groupL1, ...groupL2, ...groupR1, ...groupR2]
+      locations = [...locations,...groupL1, ...groupR1,...groupL2, ...groupR2]
     }
     // 遍历次数culTime，也就是遍历culTime次
     // 第一次计算1个，最后一次计算2*culTime - 1个 (2n -1)，每一次遍历中计算的个位数都是奇数个
