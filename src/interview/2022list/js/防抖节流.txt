@@ -24,7 +24,7 @@ function () {
     },delay)
 }
 
-节流 throttle
+节流 Throttle
 节流就是让某个时间只在某个时间段内执行1次，之后该时间段内触发都不执行
 let lasttime = 0
 function () {
