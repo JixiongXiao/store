@@ -1,0 +1,15 @@
+https://juejin.cn/post/6844903686926254087
+
+vue的组件通讯方法
+父传子props 子传父$emti eventbus ref/$refs $parent/$children 
+
+什么是eventbus?如何实现?
+EventBus 又称为事件总线。在Vue中可以使用 EventBus 来作为沟通桥梁的概念，
+就像是所有组件共用相同的事件中心，可以向该中心注册发送事件或接收事件，所以组件都可以上下平行地通知其他组件
+
+实现方式
+可以在全局引入一个vue的实例EventBus,该实例只用来发布和监听事件
+在需要发布事件的组件中引入该实例,在需要发布事件的地方通过EventBus.$emit的方式发布事件,
+然后再需要监听事件的组件中引入该实例,然后在组件内部通过EventBus.$on注册某事件监听,
+可以在mouted内注册也可以在某些主动函数内注册
+移除事件可以用EventBus.$off('event', {})

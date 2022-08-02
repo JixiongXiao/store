@@ -48,7 +48,7 @@ export default {
 @import '@/styles/mixin.scss';
 .father-box {
   font-size: 30px;
-  border: 1px solid red;
+  border: 1px solid rgb(154, 69, 69);
   width: 10em;
   .son-box {
     // font-size: 20px;
