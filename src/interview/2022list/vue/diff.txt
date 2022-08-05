@@ -1,1 +1,37 @@
 https://juejin.cn/post/6994959998283907102
+
+let oldVDOM = { // 旧虚拟DOM
+        tagName: 'ul', // 标签名
+        props: { // 标签属性
+            id: 'list'
+        },
+        children: [ // 标签子节点
+            {
+                tagName: 'li', props: { class: 'item' }, children: ['哈哈']
+            },
+            {
+                tagName: 'li', props: { class: 'item' }, children: ['呵呵']
+            },
+            {
+                tagName: 'li', props: { class: 'item' }, children: ['嘿嘿']
+            },
+        ]
+    }
+
+
+大致介绍diff算法
+diff算法就是当数据发生改变时出发了setter,然后通过nodify方法通知了所有订阅者调用
+patch方法,给真实dom打补丁,更新视图的过程
+具体流程是setter出发后通过notify通知了watcher去调用patch方法
+patch会调用sameVnode方法判断旧节点和新节点是否为同一类节点,如果不是,就创建新节点替代旧节点
+如果是,就调用patchVnode方法对节点做更深层次的比较
+
+function sameVnode(oldVnode, newVnode) {
+  return (
+    oldVnode.key === newVnode.key && // key值是否一样
+    oldVnode.tagName === newVnode.tagName && // 标签名是否一样
+    oldVnode.isComment === newVnode.isComment && // 是否都为注释节点
+    isDef(oldVnode.data) === isDef(newVnode.data) && // 是否都定义了data
+    sameInputType(oldVnode, newVnode) // 当标签为input时，type必须是否相同
+  )
+}

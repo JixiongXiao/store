@@ -1,0 +1,8 @@
+https://juejin.cn/post/6952473110377414686
+
+全局注册store
+在需要的地方通过commit发送action，action实际上是mutation，
+通过mutation去改变state状态内的数据
+
+*action可以是异步，也就是说可以异步发送mutation
+*mutation是同步执行的，mutation的内部执行顺序就是同步的
