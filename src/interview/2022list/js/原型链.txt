@@ -1,0 +1,15 @@
+https://www.bilibili.com/video/BV117411v76o/?spm_id_from=333.788&vd_source=f08abc38d649df04622163870aa5d86f
+原型对象
+*当我们通过构造函数A new一个新对象a时，如果构造函数没有返回值，那么就会返回this
+ this一般指向这个构造函数的实例a，这个实例a内部有一个属性叫__proto__，就是这个实例的原型，指向它的构造函数A的prototype
+ 也就是我们所说的原型对象，也就是说a.__proto__ === A.prototype
+
+ *in 和 hasOwnProperty的区别?
+ A.prototype.name = 'xiong'
+ 'name' in a 返回true 因为in操作符可以访问到所有通过原型链访问到的属性
+ a.hasOwnProperty('name') 返回false 因为只能访问自身属性
+ 
+ *原型链
+ 也就是说实例a的__proto__就是a的原型对象
+ 构造函数A的prototype就是A的原型对象
+ 两者指向同一个对象
