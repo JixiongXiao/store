@@ -1,0 +1,28 @@
+https://juejin.cn/post/7039665140215578638#heading-1
+
+vue2响应式的核心原理-数据劫持
+// 模拟Vue中的data选项
+    let data = {
+      msg: 'hello world'
+    }
+
+// 模拟Vue的实例
+    let vm = {}
+    // 数据劫持：当访问或者设置vm中的成员时，做一些劫持后操作
+    Object.defineProperty(vm, 'msg', {
+      // 当获取值的时候执行
+      get () {
+        console.log('get: ', data.msg)
+        return data.msg
+      },
+      // 当设置值的时候执行
+      set (newValue) {
+        console.log('set: ', newValue)
+        if (newValue === data.msg) {
+          return
+        }
+        data.msg = newValue
+        // 数据更改时更新DOM的值
+        document.querySelector('#app').textContent = data.msg
+      }
+    })

@@ -1,0 +1,39 @@
+1 svg的处理方案
+
+*webpack中的配置
+在webpack中先排除文件夹下的所有的svg文件
+然后通过svg-sprite-loader重新处理svg成为雪碧图
+
+具体代码
+  chainWebpack(config) {
+    // set svg-sprite-loader
+    // 处理svg时排除scr/icon中的svg
+    config.module.rule('svg').exclude.add(resolve('src/icons')).end()
+    config.module
+      .rule('icons')
+      .test(/\.svg$/)
+      .include.add(resolve('src/icons'))
+      .end()
+      // 把svg通过loader处理成雪碧图
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
+      .options({
+        symbolId: 'icon-[name]'
+      })
+      .end()
+  }
+*在项目中请求所有svg
+在项目中通过webpack中的require.context方法请求文件夹下的所有svg文件的路径
+
+具体代码
+const req = require.context('./svg', false, /\.svg$/) 目录，是否检索子文件夹，正则
+const requireAll = (requireContext) => requireContext.keys().map(requireContext)
+requireAll(req)
+
+*注册一个svg组件，通过<use>获取svg
+<use> 元素从 SVG 文档中获取节点，并在其他地方复制它们。 
+可以通过id在雪碧图上获取某个svg并在其他地方复制出来
+
+  <svg :class="svgClass" aria-hidden="true">
+    <use :xlink:href="iconName" />
+  </svg>
