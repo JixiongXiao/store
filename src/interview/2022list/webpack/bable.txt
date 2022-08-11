@@ -1,0 +1,16 @@
+什么是babel？
+
+Babel是一个工具链，主要用于旧浏览器或者环境中将ECMAScript 2015+代码转换为向后兼容版本的JavaScript；
+包括：语法转换、源代码转换等；比如把很长的函数名，变量名缩短，减少文件大小
+也就是说主要处理js文件
+babel的配置可以重新生成一个文件叫babel.config.js放在根目录下，然后在里面写配置
+
+关于babel的插件
+babel可以把箭头函数转换成function(){}的格式，把const变成var，把es6语法转换成es5向下兼容
+不过很多效果都需要安装plugin插件才能使用
+
+该项目中有个插件叫dynamic-import-node，在env开发模式中被引入，可以把import全部转换成require，
+增加热更新的速度
+
+由于babel的插件很多，所有babel可以使用preset预设，直接安装某个预设环境，就不需要一个一个去配置插件
+

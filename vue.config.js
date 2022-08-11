@@ -4,6 +4,7 @@ const defaultSettings = require('./src/settings.js')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
+  // __dirname获取的是当前文件的所属目录的绝对路径，也就是vue.config.js的路径
 }
 
 const name = defaultSettings.title || 'vue Element Admin' // page title
@@ -44,7 +45,7 @@ module.exports = {
     name: name,
     resolve: {
       alias: {
-        '@': resolve('src')
+        '@': resolve('src') // 此处就是vue.config.js的路径拼上了src文件
       }
     }
   },
@@ -88,7 +89,7 @@ module.exports = {
             .plugin('ScriptExtHtmlWebpackPlugin')
             .after('html')
             .use('script-ext-html-webpack-plugin', [{
-            // `runtime` must same as runtimeChunk name. default is `runtime`
+              // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
             }])
             .end()

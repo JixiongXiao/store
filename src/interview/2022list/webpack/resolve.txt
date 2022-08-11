@@ -1,0 +1,13 @@
+resolve模块 解析模块
+
+常用的一些拓展配置
+
+在configureWebpack中可以添加一个配置项resolve，内部有很多拓展配置，具体可以到webpack文档查询
+
+resolve:{
+    extensions:['.js','.json','.vue',',jsx','ts'] // 相关内省的文件在引入时就可以自动给文件添加后缀名
+    mainFiles:['index'] 如果引用路径最后是一个文件夹，就会搜索该文件夹的index文件，默认为index
+    alias:{ // 配置别名，比如@直接指向src文件，此处的resolve是个自定义的函数
+        '@': path.resolve(__dirname, './src') 也可以用path.join(__dirname,'src') path.join可以把字符串拼接成路径
+    }
+}
