@@ -1,0 +1,6 @@
+模式配置 mode
+默认选项production
+可选 none, developlent, production
+
+模式为development的时候 会将DefinedPlugin中的process.env.NODE_ENV设置为development，为模块和chunk启用有效名字
+模式为production时，NODE_ENV变为production，chunk和模块为混淆名称

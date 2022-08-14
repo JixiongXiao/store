@@ -1,3 +1,20 @@
 plugin是什么
 
-plugin目的在于解决loader无法实现的一些事
+plugin目的在于解决loader无法实现的一些事，loader一般用于特定的模块类型的转换
+plugin可以用于执行更加广泛的任务，比如打包优化，资源管理，环境变量注入等等 
+
+一些plugin
+plugins:[
+    new VueLoaderPlugin() // 用于解析vue文件
+    new CleanWebpackPlugin() // 用于打包时删除上一个打包文件
+    new HtmlWebpackPlugin({ // 在打包时生成index.html文件，可自己指定模板
+        title:'xx项目',
+        template:'./index.html'
+    })
+    nwe DefinePlugin({ // 该插件是webpack的内置插件，不需要重新安装，只需要从webpack中引入即可
+        // 打包时定义一些全局变量 process这个全局变量就是该插件设置的默认变量 process.env.NODE_ENV
+        BASE_URL:"'./'"
+    })
+]
+
+plugin和loader的区别

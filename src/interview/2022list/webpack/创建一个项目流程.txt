@@ -1,0 +1,33 @@
+一般是基于现成的一些解决方案去优化，比如vue-admin，也有保存过一些更简洁的方案
+
+优化方向
+*webpack相关
+1 postcss
+一个处理css的工具，一般是用它的autoprefixed插件，可以给css自动添加浏览器前缀
+早期css也是需要多种loader处理，比如先用css-loader在用style-loader，如果用sass或者less还要相对应的loader
+不过现成很多解决方案的preset应该把这些都集成了
+
+2 svg的处理方案，主要是svg-sprite-loader
+
+3 resolve 解析模块，常用的配置是extensions 给某些文件自动添加后缀，
+还有alias 用来配置文件访问路径别名 还有mainFiles不过默认是index为名字的文件
+
+4 babel方面 一般现在的方案都是默认用了'@vue/cli-plugin-babel/preset'
+
+5 根据特殊需求去修改mode中相对应的配置
+
+6 开发环境服务器 devServer 要安装 webpack-dev-server，不过现在的解决方案里都自带了
+  开发服务器会在打包后把文件放进内存里，然后搭建一个服务器，然后从内存读取文件，浏览器只需要从服务器请求文件即可
+  配置项hot module replacement模块热替换，常用配置项，可以只更新当前更改过的文件，现有的vue-loader就有内置该功能
+  compress配置 默认为false，开启时可以为静态文件开启gzip压缩，然后浏览器请求后会自己再解压
+
+*router相关
+1 一般就是配置一下路由守卫
+
+2 然后看采用什么类型的权限方案，还有项目的复杂程度来决定是否用动态路由
+
+*axios相关
+
+用axios.create封装成一个新的request方法，
+一般设置request中的拦截器，包括request和response，可以从请求成功和请求失败两个地方添加拦截器
+还有就是请求队列的优化
