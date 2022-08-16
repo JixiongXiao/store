@@ -1,0 +1,10 @@
+https://juejin.cn/post/7072528644739956773#comment
+
+const obj = {a:'a'}
+const newObj = obj 
+上述情况不叫浅拷贝，只是把newObj的指针指向obj
+1什么是浅拷贝?
+在js的浅拷贝有 Object.assign, Array.prototype.slice(), Array.prototype.concat()
+浅拷贝会新建一个内存
+
+ 
