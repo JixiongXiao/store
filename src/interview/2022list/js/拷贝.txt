@@ -2,9 +2,45 @@ https://juejin.cn/post/7072528644739956773#comment
 
 const obj = {a:'a'}
 const newObj = obj 
-上述情况不叫浅拷贝，只是把newObj的指针指向obj
+上述情况不叫浅拷贝，只是两者的指针指向同一个地址
 1什么是浅拷贝?
-在js的浅拷贝有 Object.assign, Array.prototype.slice(), Array.prototype.concat()
-浅拷贝会新建一个内存
+在js的浅拷贝有 Object.assign, Array.prototype.slice(), Array.prototype.concat() 数组的map
+浅拷贝会新建一个内存对被拷贝的目标进行浅层拷贝，此时新生成的对象和被拷贝的对象指向的不是同一个内存地址
+*浅拷贝的特点或者弊端?
+在浅拷贝的过程中，被拷贝的对象内的数据，如果是原始数据类型，就会被复制成新的数据，如果是引用数据类型
+那么该数据依然指向同一个内存地址。也就是说浅拷贝只是浅层拷贝了目标
+
+2什么是深拷贝?
+深拷贝就是无限层级地拷贝，拷贝后的原对象和拷贝后的对象毫无关系，就算内部嵌套了其他引用数据类型，
+指向的也不是同一个内存。
+
+一般用lodash的clone和deepclone实现
+
+常见的是
+let b =JSON.parse(JSON.stringify(a));
+【弊端】
+//   + 不允许出现套娃操作
+//   + 属性值不能是BigInt  Uncaught TypeError: Do not know how to serialize a BigInt
+//   + 丢失一些内容：只要属性值是 symbol/undefined/function 这些类型的
+//   + 还有信息不准确的，例如：正则->空对象  Error对象->空对象  日期对象->字符串  ...
+
+
+手写深拷贝
+function deepclone(obj) {
+    if(obj === null) return null
+    if(obj instanceof Date) return new Date(obj)
+    if(obj instanceof RegExp) return new RegExp(obj)
+    if(obj isntanceof HTMLElement) return obj
+    let type = typeof obj
+    if (type !== 'object') return type // 处理function, undefined等原始类型
+    let clone = new obj.constructor() // 走到这里时要开始进行递归
+    if(type === 'object') {
+        for(let key in obj) { // 开始循环，如果是数组，key就是索引index
+            if(!obj.hasOwnProperty(key)) break // 检查key值是不是本身的，防止顺着原型链向上循环属性，
+            clone[key] = deepclone(obj[key])
+        }
+    }
+    return clone
+}
 
  

@@ -21,6 +21,9 @@
   配置项hot module replacement模块热替换，常用配置项，可以只更新当前更改过的文件，现有的vue-loader就有内置该功能
   compress配置 默认为false，开启时可以为静态文件开启gzip压缩，然后浏览器请求后会自己再解压
 
+7 eslint
+需要下载很多依赖，然后eslintrc.js中配置，有一般会配上
+
 *router相关
 1 一般就是配置一下路由守卫
 

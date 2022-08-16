@@ -1,0 +1,52 @@
+ajax 
+全名async javascript and XML
+核心作用 实现数据请求+客户端渲染 局部刷新
+
+早期基于ajax从服务器获取的数据格式都是xml格式，现在改成json
+xml可扩展的标记语言 html超文本标记语言
+
+使用方法
+//1 创建xhr实例
+let xhr = new XMLHttpRequest; 
+
+//2 打开一个URL地址[发送请求前的配置信息] 
+    ·第一个参数 method 请求方式 GET(get/delete/head/options) / POST(post/put/patch)
+    ·第二个参数 url 请求的URL地址
+    ·第三个参数 true/false 是否采用异步 默认是true  //
+xhr.open('GET' './1.json');
+
+//3 监听请求的过程，再不同的阶段做不同的处理[包含获取服务器的响应信息]
+     ·ajax状态 xhr.readyState
+      -0 UNSENT
+      -1 OPEND
+      -2 HEADERS_RECEIVED 响应头信息已经返回
+      -3 LOADING 响应主题信息正在处理
+      -4 DONE 响应主题信息已经返回
+     ·HTTP状态码 xhr.status/xhr.statusText
+
+     ·获取响应主题信息，xhr.response/responseText/responseXML
+     ·获取响应头信息 xhr.getResponseHeader/getAllResponseHeaders //
+
+xhr.onreadystatechagne = function(){
+    if(xhr.readyState === 4 && xhr.status ===200){
+        console.log(xhr.responseText)
+    }
+}    
+
+//4 发送请求 send中传递的信息就是设置的请求主题信息 
+    基于请求主体传递给服务器的数据格式是有限制的
+//
+xhr.send(null)
+
+
+let xhr = new XMLHttpRequest;
+xhr.open('GET','./1.json');
+xhr.onreadystatechange = function(){
+    //readyState改变的时候会触发onreadystatechange事件
+    //if(xhr.readyState===2){
+    //}
+    if(xhr.readyState ===4 && xhr.status === 200){
+        console.log(xhr.responseText)
+    }
+}
+xhr.send(null)
