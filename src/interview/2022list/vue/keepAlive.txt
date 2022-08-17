@@ -1,0 +1,21 @@
+
+https://juejin.cn/post/7043401297302650917
+*keep-alive是什么？ 
+keep-alive是一个Vue全局组件
+keep-alive本身不会渲染出来，也不会出现在父组件链中
+keep-alive包裹动态组件时，会缓存不活动的组件，而不是销毁它们
+
+keep-alive接收三个参数：
+
+include：可传字符串、正则表达式、数组，名称匹配成功的组件会被缓存
+exclude：可传字符串、正则表达式、数组，名称匹配成功的组件不会被缓存
+max：可传数字，限制缓存组件的最大数量
+
+include和exclude，传数组情况居多
+
+例子
+<keep-alive :include="allowList" :exclude="noAllowList" :max="amount"> 
+    <component :is="currentComponent"></component> 
+</keep-alive>
+
+is 会匹配文件名 文件名要么用RightMenu的形式要么用right-menu

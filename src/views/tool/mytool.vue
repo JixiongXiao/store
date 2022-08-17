@@ -10,7 +10,7 @@
           <el-dropdown-item
             command="click-outside"
           >点击div以外区域关闭div</el-dropdown-item>
-          <el-dropdown-item command="right-menu">右键菜单</el-dropdown-item>
+          <el-dropdown-item command="RightMenu">右键菜单</el-dropdown-item>
           <el-dropdown-item
             command="json-board"
           >展示JSON格式数据</el-dropdown-item>
