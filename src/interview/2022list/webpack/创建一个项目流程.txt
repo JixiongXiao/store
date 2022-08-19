@@ -3,7 +3,7 @@
 优化方向
 *webpack相关
 1 postcss
-一个处理css的工具，一般是用它的autoprefixed插件，可以给css自动添加浏览器前缀
+一个处理css的工具，一般是用它的autoprefixed插件，可以给css自动不同的浏览器的标识前缀
 早期css也是需要多种loader处理，比如先用css-loader在用style-loader，如果用sass或者less还要相对应的loader
 不过现成很多解决方案的preset应该把这些都集成了
 
@@ -12,9 +12,10 @@
 3 resolve 解析模块，常用的配置是extensions 给某些文件自动添加后缀，
 还有alias 用来配置文件访问路径别名 还有mainFiles不过默认是index为名字的文件
 
-4 babel方面 一般现在的方案都是默认用了'@vue/cli-plugin-babel/preset'
+4 babel方面 一般现在的方案都是默认用了'@vue/cli-plugin-babel/preset'，为了保证js的兼容性，
+vue admin的现成解决方案中还会配置一个插件可以在开发模式时把require改成import加快热更新
 
-5 根据特殊需求去修改mode中相对应的配置
+5 根据特殊需求去修改mode中相对应的配置，也就是生产模式和开发模式的配置，
 
 6 开发环境服务器 devServer 要安装 webpack-dev-server，不过现在的解决方案里都自带了
   开发服务器会在打包后把文件放进内存里，然后搭建一个服务器，然后从内存读取文件，浏览器只需要从服务器请求文件即可
@@ -23,6 +24,8 @@
 
 7 eslint
 需要下载很多依赖，然后eslintrc.js中配置，有一般会配上
+
+8 配置jsconfig添加一个compilerOptions的配置，可以在import组件时增加提示，快速补全
 
 *router相关
 1 一般就是配置一下路由守卫
