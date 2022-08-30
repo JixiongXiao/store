@@ -13,6 +13,7 @@
 还有alias 用来配置文件访问路径别名 还有mainFiles不过默认是index为名字的文件
 
 4 babel方面 一般现在的方案都是默认用了'@vue/cli-plugin-babel/preset'，为了保证js的兼容性，
+  插件内部自带 chach-loader和thread-loader功能
 vue admin的现成解决方案中还会配置一个插件可以在开发模式时把require改成import加快热更新
 
 5 根据特殊需求去修改mode中相对应的配置，也就是生产模式和开发模式的配置，
